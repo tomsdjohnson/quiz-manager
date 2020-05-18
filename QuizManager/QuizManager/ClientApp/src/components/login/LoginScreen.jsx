@@ -31,14 +31,7 @@ export class LoginScreen extends Component {
     };
 
     handleSubmit = () => {
-    
-
-        // return new Promise(resolve =>
-        //     fetch('login')
-        //     .then(result => {
-        //     console.log(result);
-        //     })
-        // );
+      this.props.login(this.state.password, this.state.username)
     };
 
   render() {

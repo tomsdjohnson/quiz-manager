@@ -2,55 +2,63 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './Layout';
 import { Home } from './Home';
-import { FetchData } from './FetchData';
-import { Counter } from './Counter';
+import { LoginScreen } from './login/LoginScreen'
+import { ApiService } from './ApiService';
 
 import '../custom.css'
 
 export default class App extends Component {
-  static displayName = App.name;
+  constructor() {
+    super();
 
-  // componentDidMount = () => {
-  //   this.initialize();
+    this.apiService = new ApiService();
+    this.state = BLANK_STATE;
+  }
 
-  //   this.state = BLANK_STATE;
-  //   this.toastClient.subscribeToUpdateCurrentUser(user =>
-  //     this.updateUserData(user)
-  //   );
-  // };
+  login = (password, username) => {
+    this.apiService.login(password, username)
+    .then(userInfo => {
+      this.setState({userInfo});
+      this.updateLoginState(LOGGED_IN);
+    })
+    .catch(e => {
+      alert(e);
+      this.updateLoginState(LOGIN_FAILED);
+    })
+  };
 
+  updateUserData = userData => {
+    console.log(userData);
+  };
 
-
-  // initialize = token => {
-  //   this.toastClient.start().then(() => {
-  //     if (this.state.loginState === LOADING) {
-  //       this.login().catch(() => this.updateLoginState(LOGGED_OUT));
-  //     }
-  //   });
-  // };
+  updateLoginState = newState => {
+    this.setState({
+      loginState: newState
+    });
+  };
 
   render () {
+    if (this.state.loginState !== LOGGED_IN) {
+      return <LoginScreen login={this.login} loginState={this.state.loginState} />;
+    }
+
     return (
       <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
       </Layout>
     );
   }
 }
 
 // Login states
-const LOADING = 'LOADING';
+const LOGIN_FAILED = 'LOGIN_FAILED';
 const LOGGED_OUT = 'LOGGED_OUT';
-const PENDING = 'PENDING';
 const LOGGED_IN = 'LOGGED_IN';
 
 const BLANK_STATE = {
-  installPrompt: false,
   loginState: LOGGED_OUT,
   userInfo: {
-    userName: null,
-    userId: null,
+    username: null,
+    userPermission: null,
   }
 };

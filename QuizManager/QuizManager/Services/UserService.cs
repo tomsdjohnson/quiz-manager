@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using QuizManager.Data.Models;
 using QuizManager.Data.Repositories;
 
@@ -11,15 +12,24 @@ namespace QuizManager.Services
 
     public class UserService : IUserService
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
         public UserService(IUserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            this._userRepository = userRepository;
         }
 
         public async Task<User> GetUserInfo(User user)
         {
-            return await userRepository.GetUserInfo(user);
+            user.Password = HashPassword(user.Password);
+            return await _userRepository.GetUserInfo(user);
+        }
+
+        private static string HashPassword(string password)
+        {
+            using var sha = new System.Security.Cryptography.SHA256Managed();
+            var textData = System.Text.Encoding.UTF8.GetBytes(password);
+            var hash = sha.ComputeHash(textData);
+            return BitConverter.ToString(hash).Replace("-", String.Empty);
         }
     }
 }
