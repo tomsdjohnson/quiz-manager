@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const Navbar = styled.div`
@@ -11,5 +11,5 @@ export const Navbar = styled.div`
 `;
 
 export const NavbarLink = styled(NavLink)`
-  
+
 `;

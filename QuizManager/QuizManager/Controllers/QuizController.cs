@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QuizManager.Data.Models;
+using QuizManager.Services;
 
 namespace QuizManager.Controllers
 {
@@ -11,13 +9,18 @@ namespace QuizManager.Controllers
     [Route("quiz")]
     public class QuizController : ControllerBase
     {
+        private readonly IQuizService _userService;
+
+        public QuizController(IQuizService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpPost]
-        public Task uploadQuiz(Quiz quiz)
+        public Task UploadQuiz(Quiz quiz)
         {
-
-            Console.WriteLine(quiz);
-            return null;
+            _userService.UploadQuiz(quiz);
+            return Task.CompletedTask;
         }
     }
 }

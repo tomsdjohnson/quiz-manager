@@ -4,7 +4,7 @@ import {
 
 } from './HomeComponents';
 
-export class Home extends Component {
+export class HomePage extends Component {
 
   render () {
     return (

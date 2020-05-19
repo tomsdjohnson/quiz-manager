@@ -16,54 +16,30 @@ export class QuestionForm extends Component {
 
     handleQuestionNameChange = event => {
         var newQuestion = _.cloneDeep(this.props.question);
-        newQuestion.QuestionText = event.target.value;
+        newQuestion.questionText = event.target.value;
         this.props.changeQuestion(newQuestion, this.props.index);
     };  
 
-    handleCorrectChange = event => {
+    handleAnswerChange = (event, index, correct) => {
         var newQuestion = _.cloneDeep(this.props.question);
-        newQuestion.Answers[0] = {
-            IsCorrect: true,
-            AnswerText: event.target.value
-          };
+        var answer = event.target.value === '' ? null 
+        : {isCorrect: correct, answerText: event.target.value}
+
+        newQuestion.answers[index] = answer;
         this.props.changeQuestion(newQuestion, this.props.index);
     };
 
-    handleWrongAnswer1Change = event => {
-        var newQuestion = _.cloneDeep(this.props.question);
-        newQuestion.Answers[1] = {
-            IsCorrect: false,
-            AnswerText: event.target.value
-          };
-        this.props.changeQuestion(newQuestion, this.props.index);
-    };
-
-    handleWrongAnswer2Change = event => {
-        var newQuestion = _.cloneDeep(this.props.question);
-        newQuestion.Answers[2] = {
-            IsCorrect: false,
-            AnswerText: event.target.value
-          };
-        this.props.changeQuestion(newQuestion, this.props.index);
-    };
-
-    handleWrongAnswer3Change = event => {
-        var newQuestion = _.cloneDeep(this.props.question);
-        newQuestion.Answers[3] = {
-            isCorrect: false,
-            AnswerText: event.target.value
-          };
-        this.props.changeQuestion(newQuestion, this.props.index);
-    };
-
-    handleWrongAnswer4Change = event => {
-        var newQuestion = _.cloneDeep(this.props.question);
-        newQuestion.Answers[4] ={
-            IsCorrect: false,
-            AnswerText: event.target.value
-          };
-        this.props.changeQuestion(newQuestion, this.props.index);
-    };
+  renderWrongInput = (answer, index) => {
+    if(index === 0){ return };
+    return(
+        <WrongInput 
+            key={index}
+            placeholder={"Enter false answer"}
+            value={getInputValue(answer)}
+            onChange={event => this.handleAnswerChange(event, index, false)} 
+        />
+    )
+  }  
 
   render () {
     return (
@@ -84,34 +60,19 @@ export class QuestionForm extends Component {
              </CorrectAnswerTag>
             <CorrectInput 
             placeholder={"Enter correct answer"}
-            value={this.props.question.Answers[0].AnswerText}
-            onChange={this.handleCorrectChange}
+            value={getInputValue(this.props.question.answers[0])}
+            onChange={event => this.handleAnswerChange(event,0,true)}
             />
         </InputBox>
         <WrongAnswerTag> Wrong Answers: </WrongAnswerTag> 
         <MultipleInputBox>
-            <WrongInput 
-            placeholder={"Enter false answer"} 
-            value={this.props.question.Answers[1].AnswerText}
-            onChange={this.handleWrongAnswer1Change}
-            />
-            <WrongInput 
-            placeholder={"Enter false answer"}
-            value={this.props.question.Answers[2].AnswerText}
-            onChange={this.handleWrongAnswer2Change} 
-            />
-            <WrongInput 
-            placeholder={"Enter false answer"}
-            value={this.props.question.Answers[3].AnswerText}
-            onChange={this.handleWrongAnswer3Change} 
-            />
-            <WrongInput 
-            placeholder={"Enter false answer"}
-            value={this.props.question.Answers[4].AnswerText}
-            onChange={this.handleWrongAnswer4Change} 
-            />
+            {this.props.question.answers.map((answer, index) => this.renderWrongInput(answer, index))}
         </MultipleInputBox>
     </QuestionsDiv>
     );
   }
+}
+
+const getInputValue = (answer,) => {
+    return answer ? answer.answerText : '';
 }

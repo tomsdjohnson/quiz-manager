@@ -24,8 +24,6 @@ export class ApiService {
          body: JSON.stringify(quiz),
          headers: {'Content-Type': 'application/json'}
        })
-       .then(response => checkIfSuccessful(response))
-       .then(newProject => resolve(extractUserInfo(newProject)))
        .catch(e => reject(e))
      );
   }

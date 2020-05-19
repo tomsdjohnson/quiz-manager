@@ -18,9 +18,9 @@ namespace QuizManager.Controllers
         }
 
         [HttpPost]
-        public async Task<User> GetUserInfo(User user)
+        public User GetUserInfo(User user)
         {
-            return await _userService.GetUserInfo(user);
+            return _userService.GetUserInfo(user);
         }
     }
 }

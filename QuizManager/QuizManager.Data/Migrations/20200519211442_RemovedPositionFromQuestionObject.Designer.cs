@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizManager.Data.Context;
 
 namespace QuizManager.Data.Migrations
 {
     [DbContext(typeof(QuizManagerContext))]
-    partial class QuizManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20200519211442_RemovedPositionFromQuestionObject")]
+    partial class RemovedPositionFromQuestionObject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +61,7 @@ namespace QuizManager.Data.Migrations
 
             modelBuilder.Entity("QuizManager.Data.Models.Quiz", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

@@ -11,8 +11,6 @@ namespace QuizManager.Data.Models
         [ForeignKey("QuizId")]
         public Quiz Quiz { get; set; }
 
-        public int Position { get; set; }
-
         [Required]
         public string QuestionText { get; set; }
 

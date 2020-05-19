@@ -3,8 +3,6 @@ import { Navbar, NavbarLink } from './NavComponents.js';
 import { Link } from 'react-router-dom';
 
 export class NavMenu extends Component {
-  static displayName = NavMenu.name;
-
   constructor (props) {
     super(props);
 
@@ -24,8 +22,8 @@ export class NavMenu extends Component {
     return (
       <header>
         <Navbar>
-            <NavbarLink tag={Link} to="/edit">QuizManager</NavbarLink>
             <NavbarLink tag={Link} to="/">Home</NavbarLink>
+            <NavbarLink tag={Link} to="/edit">Edit</NavbarLink>
         </Navbar>
       </header>
     );

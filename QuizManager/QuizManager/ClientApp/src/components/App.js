@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import { Layout } from './Layout';
-import { Home } from './homePage/HomePage';
+import { Container } from 'reactstrap';
+import { NavMenu } from './NavigationBar/NavMenu'
+import { HomePage } from './homePage/HomePage';
 import { LoginScreen } from './login/LoginScreen'
 import { ApiService } from './ApiService';
 import { EditQuizPage } from './editQuiz/EditQuizPage';
@@ -34,15 +35,18 @@ export default class App extends Component {
   };
 
   render () {
-    // if (this.state.loginState !== LOGGED_IN) {
-    //   return <LoginScreen login={this.login} loginState={this.state.loginState} />;
-    // }
+    if (this.state.loginState !== LOGGED_IN) {
+      return <LoginScreen login={this.login} loginState={this.state.loginState} />;
+    }
 
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/edit' component={EditQuizPage} />
-      </Layout>
+      <div>
+        <NavMenu />
+        <Container>
+          <Route exact path='/' component={HomePage} />
+          <Route exact path='/edit' component={EditQuizPage} />
+        </Container>
+      </div>
     );
   }
 }

@@ -14,27 +14,27 @@ export class EditQuizPage extends Component {
       this.apiService = new ApiService();
 
       this.state = {
-        Questions: [],
-        Name: ''
+        questions: [],
+        name: ''
       };
   }
           
   handleNewQuestion = () => {
     this.setState(state => ({
-      Questions: [...state.Questions, QUESTION]
+      questions: [...state.questions, QUESTION]
     }));
   };
 
   handleNameChange = event => {
     this.setState({
-      Name: event.target.value
+      name: event.target.value
     });
   };
 
   handleQuestionChange = (newQuestion, index) => {
-    let Questions = this.state.Questions.slice();
-    Questions[index] = newQuestion;
-    this.setState({Questions});
+    let questions = this.state.questions.slice();
+    questions[index] = newQuestion;
+    this.setState({questions});
   };
 
   handleSave = () => {
@@ -48,25 +48,20 @@ export class EditQuizPage extends Component {
          Save 
       </ SaveButton> 
         <QuizTitleEdit 
-        quizName={this.state.Name}
+        quizName={this.state.name}
         changeName={this.handleNameChange}
         />
         <QuestionsEdit 
         changeQuestion={this.handleQuestionChange}
-        questions={this.state.Questions}
+        questions={this.state.questions}
         newQuestion={this.handleNewQuestion}
         />
       </EditQuizDiv>
     );
   }
 }
-const ANSWER = {
-  IsCorrect: null,
-  AnswerText: ''
-}
 
 const QUESTION = {
-  QuestionText: '',
-  Answers:
-    [ANSWER,ANSWER,ANSWER,ANSWER,ANSWER]
+  questionText: '',
+  answers: new Array(5).fill(null)
 }
