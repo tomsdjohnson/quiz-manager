@@ -7,7 +7,7 @@ import {
   PasswordInput,
   LogInButton
 
-} from './LoginComponants';
+} from './LoginComponents';
 
 export class LoginScreen extends Component {
     constructor() {
@@ -18,6 +18,7 @@ export class LoginScreen extends Component {
         password: '',
       };
     }
+    
     handleUsernameChange = event => {
         this.setState({
             username: event.target.value
@@ -42,14 +43,16 @@ export class LoginScreen extends Component {
             User Login
           </LoginHeader>
           <UsernameInput 
+                placeholder={"Username"}
                 value={this.state.username}
                 onChange={this.handleUsernameChange} />
           <PasswordInput 
+                placeholder={"Password"}
                 value={this.state.password}
                 onChange={this.handlePasswordChange}/>
-            <LogInButton onClick={this.handleSubmit}>
-              Login
-            </LogInButton>
+          <LogInButton onClick={this.handleSubmit}>
+            Login
+          </LogInButton>
         </LoginBox>
       </LoginDiv>
     );

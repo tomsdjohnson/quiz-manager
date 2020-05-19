@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './Layout';
-import { Home } from './Home';
+import { Home } from './homePage/HomePage';
 import { LoginScreen } from './login/LoginScreen'
 import { ApiService } from './ApiService';
-
-import '../custom.css'
+import { EditQuizPage } from './editQuiz/EditQuizPage';
 
 export default class App extends Component {
   constructor() {
@@ -21,10 +20,7 @@ export default class App extends Component {
       this.setState({userInfo});
       this.updateLoginState(LOGGED_IN);
     })
-    .catch(e => {
-      alert(e);
-      this.updateLoginState(LOGIN_FAILED);
-    })
+    .catch(e => {alert(e);})
   };
 
   updateUserData = userData => {
@@ -38,20 +34,20 @@ export default class App extends Component {
   };
 
   render () {
-    if (this.state.loginState !== LOGGED_IN) {
-      return <LoginScreen login={this.login} loginState={this.state.loginState} />;
-    }
+    // if (this.state.loginState !== LOGGED_IN) {
+    //   return <LoginScreen login={this.login} loginState={this.state.loginState} />;
+    // }
 
     return (
       <Layout>
         <Route exact path='/' component={Home} />
+        <Route exact path='/edit' component={EditQuizPage} />
       </Layout>
     );
   }
 }
 
 // Login states
-const LOGIN_FAILED = 'LOGIN_FAILED';
 const LOGGED_OUT = 'LOGGED_OUT';
 const LOGGED_IN = 'LOGGED_IN';
 

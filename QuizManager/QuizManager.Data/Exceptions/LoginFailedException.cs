@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuizManager.Exceptions
+namespace QuizManager.Data.Exceptions
 {
     [Serializable]
     public class LoginFailedException : Exception

@@ -22,12 +22,13 @@ export const LoginHeader = styled.div`
   color: black;
   font-size: 30px;
   margin: 20px;
+  fo
 `;
 
 const genericInputStyle = css`
     margin: 0 auto;
     display: block;
-    background-color: gainsboro;
+    background-color: #eeeeee;
     width: 50%;
     font-size: 16px;
     padding: 6px 2px;
@@ -43,19 +44,19 @@ export const UsernameInput = styled.input.attrs({ type: 'text' })`
 
 export const PasswordInput = styled.input.attrs({ type: 'password' })`
     ${genericInputStyle};
+    margin-bottom: 20px;
 `;
 
 export const LogInButton = styled.button`
-  margin-bottom: 20px;
-  margin-top: 10px;
   display: block;
+  font-weight: bold
   cursor: pointer;
   outline: none;
   margin: 0 auto;
   padding: 4px 8px;
   border: 0;
   border-radius: 0px;
-  background: PaleGreen;
+  background: #007bff;
   color: white;
   font-size: 16px;
 `;

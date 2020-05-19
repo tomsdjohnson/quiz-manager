@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuizManager.Data.Context;
 using QuizManager.Data.Models;
-using QuizManager.Exceptions;
+using QuizManager.Data.Exceptions;
 
 namespace QuizManager.Data.Repositories
 {

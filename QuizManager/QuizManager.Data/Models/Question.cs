@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuizManager.Data.Models
@@ -13,6 +14,8 @@ namespace QuizManager.Data.Models
         public int Position { get; set; }
 
         [Required]
-        public int QuestionText { get; set; }
+        public string QuestionText { get; set; }
+
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }
