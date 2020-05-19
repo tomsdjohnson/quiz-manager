@@ -15,7 +15,7 @@ namespace QuizManager.Services
         private readonly IUserRepository _userRepository;
         public UserService(IUserRepository userRepository)
         {
-            this._userRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<User> GetUserInfo(User user)

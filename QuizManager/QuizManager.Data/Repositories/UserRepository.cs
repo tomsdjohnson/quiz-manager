@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuizManager.Data.Context;
 using QuizManager.Data.Models;
+using QuizManager.Exceptions;
 
 namespace QuizManager.Data.Repositories
 {
@@ -22,15 +23,13 @@ namespace QuizManager.Data.Repositories
 
         public async Task<User> GetUserInfo(User userLogin)
         {
-            try
-            {
-                var user = await _context.Users.SingleAsync(r => r.Username == userLogin.Username && r.Password == userLogin.Password);
-                return user;
-            }
-            catch (Exception e)
-            {
-                throw new System.ArgumentException("Password is incorrect ", e);
-            }
+            var user = await _context.Users
+                .SingleOrDefaultAsync(u => u.Username == userLogin.Username && u.Password == userLogin.Password);
+
+            if (user == null) throw new LoginFailedException();
+            user.Password = null;
+
+            return user;
         }
     }
 }

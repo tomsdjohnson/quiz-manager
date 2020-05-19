@@ -10,17 +10,17 @@ namespace QuizManager.Controllers
     [Route("login")]
     public class LoginController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
 
         public LoginController(IUserService userService)
         {
-            this.userService = userService;
+            _userService = userService;
         }
 
         [HttpPost]
         public async Task<User> GetUserInfo(User user)
         {
-            return await userService.GetUserInfo(user);
+            return await _userService.GetUserInfo(user);
         }
     }
 }
