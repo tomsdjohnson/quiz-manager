@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { ApiService } from '../ApiService';
+import { HomePageQuizForm } from './HomePageQuizForm';
 import {
-  HomeDiv
+  HomeDiv,
+  HomeTitleTag,
+  HomeTitleContainer,
+  QuizzesContainer
 
 } from './HomeComponents';
 
@@ -9,17 +12,30 @@ export class HomePage extends Component {
   constructor() {
     super();
 
-    this.apiService = new ApiService();
   }
 
-  componentDidMount = () => {
-    this.apiService.getAllQuizzes()
-  };
+  renderForms = (quiz, index) => {  
+    return(
+    <HomePageQuizForm
+        key={index} 
+        index={index} 
+        quiz={quiz}
+    />
+    )
+  }
 
   render () {
     return (
       <HomeDiv>
-        <h1>Hello, world!</h1>
+        <HomeTitleContainer>
+          <HomeTitleTag>
+            Quizzes:
+          </HomeTitleTag>
+        </HomeTitleContainer>
+        <QuizzesContainer>
+          {this.props.quizzes && 
+          this.props.quizzes.map((quiz, index) => this.renderForms(quiz, index))}
+        </QuizzesContainer>
       </HomeDiv>
     );
   }

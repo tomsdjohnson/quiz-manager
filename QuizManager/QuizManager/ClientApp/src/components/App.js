@@ -11,7 +11,6 @@ export default class App extends Component {
   constructor() {
     super();
 
-
     this.apiService = new ApiService();
     this.state = BLANK_STATE;
   }
@@ -26,10 +25,10 @@ export default class App extends Component {
 
   initialize = userInfo => {
     this.setState({userInfo});
-    this.updateLoginState(LOGGED_IN);
-    
     this.apiService.getAllQuizzes()
     .then(quizzes => this.updateQuizzesState(quizzes));
+    
+    this.updateLoginState(LOGGED_IN);
   }
 
   updateQuizzesState = quizzes => {
@@ -56,7 +55,9 @@ export default class App extends Component {
       <div>
         <NavMenu />
         <Container>
-          <Route exact path='/' component={HomePage} />
+          <Route exact path='/'> 
+            <HomePage quizzes={this.state.quizzes}/>
+          </Route>
           <Route exact path='/edit' component={EditQuizPage} />
         </Container>
       </div>

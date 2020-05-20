@@ -29,9 +29,18 @@ namespace QuizManager.Data.Repositories
             }
             else
             {
-                var databaseQuiz = _context.Quizzes.Single(q => q.Id == quiz.Id);
+                var databaseQuiz = _context.Quizzes.Where(q => q.Id == quiz.Id)
+                    .Include(q => q.Questions)
+                    .ThenInclude(q => q.Answers).Single();
+
                 databaseQuiz.Questions = quiz.Questions;
                 databaseQuiz.Name = quiz.Name;
+
+
+
+                // var databaseQuiz = _context.Quizzes.Single(q => q.Id == quiz.Id);
+                // databaseQuiz.Questions = quiz.Questions;
+                // databaseQuiz.Name = quiz.Name;
             }
             _context.SaveChanges();
         }

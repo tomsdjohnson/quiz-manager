@@ -3,23 +3,22 @@ import {
   EditQuizDiv,
   SaveButton
 } from './EditQuizComponents';
-import { isNameValid, areQuestionsValid } from '../helpers/QuizValidationHelper'
+import { isNameValid, areQuestionsValid } from '../helpers/QuizValidationHelper';
 import { ApiService } from '../ApiService';
-import {EditQuizTitle} from  './EditQuizTitle'
-import {EditQuizQuestions} from  './EditQuizQuestions'
+import {EditQuizTitle} from  './EditQuizTitle';
+import {EditQuizQuestions} from  './EditQuizQuestions';
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import _ from 'lodash';
 
 export class EditQuizPage extends Component {
-    constructor() {
-      super();
-  
-      this.apiService = new ApiService();
+    constructor(props) {
+      super(props);
 
-      this.state = {
-        questions: [],
-        name: ''
-      };
+      this.apiService = new ApiService();
+      
+      this.state = props.location.state
+        ? props.location.state.quiz
+        : { questions: [], name: '' };
   }
    
   handleNewQuestion = () => {
@@ -47,7 +46,7 @@ export class EditQuizPage extends Component {
   handleSave = () => {
     if( areQuestionsValid(this.state.questions) && isNameValid(this.state.name)){
       this.apiService.saveQuizChanges(this.state)
-      .then(response => {response.ok ? window.location.replace('/') : alert('Failed to save Quiz')});
+      .then(response => {response.ok ? this.props.history.push('/') : alert('Failed to save Quiz')});
     }
   };
 
