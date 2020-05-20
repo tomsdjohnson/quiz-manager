@@ -3,41 +3,49 @@ window.jQuery = window.$ = $;
 
 export class ApiService {
 
-  login(password, username) {
+  login(userLogin) {
     return new Promise((resolve, reject) =>
       fetch('login', {
          method: 'POST',
-         body: JSON.stringify({ Username: username, Password: password }),
+         body: JSON.stringify(userLogin),
          headers: {'Content-Type': 'application/json'}
        })
-       .then(response => checkIfSuccessful(response))
-       .then(newProject => resolve(extractUserInfo(newProject)))
+       .then(response => checkResponse(response))
+       .then(users => resolve(extractUserInfo(users)))
        .catch(e => reject(e))
      );
   }
 
   saveQuizChanges(quiz) {
-    console.log("HERE", quiz)
-    return new Promise((resolve, reject) =>
+    return new Promise(resolve  =>
       fetch('quiz', {
          method: 'POST',
          body: JSON.stringify(quiz),
          headers: {'Content-Type': 'application/json'}
        })
-       .catch(e => reject(e))
+       .then(response => resolve(response))
+     );
+  }
+
+  getAllQuizzes() {
+    return new Promise(resolve  =>
+      fetch('quiz')
+       .then(response => response.json())
+       .then(allQuizzes => resolve(allQuizzes))
      );
   }
   
 }
 
-const checkIfSuccessful = response => {
-  if(response.ok){
-    return response.json();
+const checkResponse = response => {
+  if(!response.ok){
+    throw new Error('Login failed');
   }
-  throw new Error("Incorrect username or password.");
+  return response.json()
 }
 
 const extractUserInfo = user => {
+  console.log(user);
   return {
     username: user.username,
     userPermission: user.permissionLevel

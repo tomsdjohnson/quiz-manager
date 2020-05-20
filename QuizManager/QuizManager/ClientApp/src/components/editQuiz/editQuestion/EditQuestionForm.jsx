@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
+import { EditWrongAnswers } from './EditWrongAnswers'
 import {
-    QuestionsDiv,
+    QuestionDiv,
     InputBox,
-    MultipleInputBox,
     QuestionInput,
-    WrongInput,
     CorrectInput,
     QuestionTag,
     WrongAnswerTag,
     CorrectAnswerTag,
-} from './EditQuizComponents';
+    DeleteQuestionButton
+} from './EditQuestionComponents';
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import _ from 'lodash';
 
-export class QuestionForm extends Component {
+export class EditQuestionForm extends Component {
 
     handleQuestionNameChange = event => {
         var newQuestion = _.cloneDeep(this.props.question);
@@ -20,30 +21,15 @@ export class QuestionForm extends Component {
         this.props.changeQuestion(newQuestion, this.props.index);
     };  
 
-    handleAnswerChange = (event, index, correct) => {
+    handleAnswerChange = (event, index, isCorrect) => {
         var newQuestion = _.cloneDeep(this.props.question);
-        var answer = event.target.value === '' ? null 
-        : {isCorrect: correct, answerText: event.target.value}
-
-        newQuestion.answers[index] = answer;
+        newQuestion.answers[index] = {isCorrect: isCorrect, answerText: event.target.value};
         this.props.changeQuestion(newQuestion, this.props.index);
     };
 
-  renderWrongInput = (answer, index) => {
-    if(index === 0){ return };
-    return(
-        <WrongInput 
-            key={index}
-            placeholder={"Enter false answer"}
-            value={getInputValue(answer)}
-            onChange={event => this.handleAnswerChange(event, index, false)} 
-        />
-    )
-  }  
-
   render () {
     return (
-    <QuestionsDiv>
+    <QuestionDiv isValid={this.props.isValid}>
         <InputBox>
             <QuestionTag >
                 Q{this.props.index +1}: 
@@ -53,6 +39,7 @@ export class QuestionForm extends Component {
             value={this.props.question.questionText}
             onChange={this.handleQuestionNameChange}
           />
+          <DeleteQuestionButton icon={faTrash} onClick={e => this.props.deleteQuestion(e, this.props.index)}  />
         </InputBox>
         <InputBox>
             <CorrectAnswerTag >
@@ -65,14 +52,17 @@ export class QuestionForm extends Component {
             />
         </InputBox>
         <WrongAnswerTag> Wrong Answers: </WrongAnswerTag> 
-        <MultipleInputBox>
-            {this.props.question.answers.map((answer, index) => this.renderWrongInput(answer, index))}
-        </MultipleInputBox>
-    </QuestionsDiv>
+        <EditWrongAnswers 
+            changeAnswer={this.handleAnswerChange}
+            changeQuestion={this.props.changeQuestion}
+            question={this.props.question}
+            index={this.props.index}
+        />
+    </QuestionDiv>
     );
   }
 }
 
-const getInputValue = (answer,) => {
+const getInputValue = (answer) => {
     return answer ? answer.answerText : '';
 }

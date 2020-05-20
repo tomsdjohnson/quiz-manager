@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using QuizManager.Data.Context;
 using QuizManager.Data.Models;
 
@@ -7,6 +9,7 @@ namespace QuizManager.Data.Repositories
     public interface IQuizRepository
     {
         void UploadQuiz(Quiz quiz);
+        List<Quiz> GetAllQuizzes();
     }
 
     public class QuizRepository : IQuizRepository
@@ -31,6 +34,13 @@ namespace QuizManager.Data.Repositories
                 databaseQuiz.Name = quiz.Name;
             }
             _context.SaveChanges();
+        }
+
+        public List<Quiz> GetAllQuizzes()
+        {
+            return _context.Quizzes
+                .Include(q => q.Questions)
+                .ThenInclude(q => q.Answers).ToList();
         }
     }
 }

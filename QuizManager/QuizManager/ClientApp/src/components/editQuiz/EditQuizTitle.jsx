@@ -5,7 +5,7 @@ import {
     QuizNameTag
 } from './EditQuizComponents';
 
-export class QuizTitleEdit extends Component {
+export class EditQuizTitle extends Component {
   render () {
     return (
       <QuizTitleContainer>

@@ -24,7 +24,11 @@ namespace QuizManager.Data.Repositories
             var user =_context.Users
                 .SingleOrDefault(u => u.Username == userLogin.Username && u.Password == userLogin.Password);
 
-            if (user == null) throw new LoginFailedException();
+            if (user == null)
+            {
+                throw new LoginFailedException();
+            }
+            
             user.Password = null;
 
             return user;

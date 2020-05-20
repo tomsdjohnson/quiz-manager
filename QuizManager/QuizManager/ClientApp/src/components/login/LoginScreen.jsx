@@ -32,7 +32,7 @@ export class LoginScreen extends Component {
     };
 
     handleSubmit = () => {
-      this.props.login(this.state.password, this.state.username)
+      this.props.login(this.state)
     };
 
   render() {
