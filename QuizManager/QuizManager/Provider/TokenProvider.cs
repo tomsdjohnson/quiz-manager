@@ -32,7 +32,7 @@ namespace QuizManager.Provider
         {
             IEnumerable<Claim> claims = new Claim[]
             {
-                new Claim("ACCESS_LEVEL", user.PermissionLevel.ToString())
+                new Claim("ACCESS_LEVEL", (user.PermissionLevel == Permission.Edit).ToString())
             };
             return claims;
         }

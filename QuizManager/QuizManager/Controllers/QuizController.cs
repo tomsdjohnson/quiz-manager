@@ -19,7 +19,7 @@ namespace QuizManager.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "Edit")]
         public Task UploadQuiz(Quiz quiz)
         {
             _quizService.UploadQuiz(quiz);
@@ -27,7 +27,7 @@ namespace QuizManager.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        [Authorize(Policy = "Edit")]
         [Route("delete-quiz-content")]
         public Task DeleteQuizContent(Quiz quiz)
         {
@@ -44,7 +44,7 @@ namespace QuizManager.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        [Authorize(Policy = "Edit")]
         [Route("delete-quiz")]
         public Task DeleteQuiz(Quiz quiz)
         {

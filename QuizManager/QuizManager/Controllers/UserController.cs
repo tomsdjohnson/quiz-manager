@@ -7,19 +7,21 @@ using QuizManager.Services;
 namespace QuizManager.Controllers
 {
     [ApiController]
-    [Route("login")]
-    public class LoginController : ControllerBase
+    [Route("user")]
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public LoginController(IUserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
 
         [HttpPost]
+        [Route("login")]
         public User Login(User userInfo)
         {
+
             var tokenProvider = new TokenProvider();
             var user = _userService.GetUserInfo(userInfo);
 
@@ -29,6 +31,8 @@ namespace QuizManager.Controllers
             return user;
         }
 
+        [HttpPost]
+        [Route("logout")]
         public void Logoff()
         {
             HttpContext.Session.Clear();

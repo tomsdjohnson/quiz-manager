@@ -2,11 +2,19 @@ export class ApiService {
 
   login(userLogin) {
     return new Promise(resolve =>
-      fetch('login', {
+      fetch('user/login', {
          method: 'POST',
          body: JSON.stringify(userLogin),
          headers: {'Content-Type': 'application/json'}
        })
+       .then(response => checkResponse(response))
+       .then(response => resolve(response.json()))
+     )
+  }
+
+  logout() {
+    return new Promise(resolve  =>
+      fetch('uset/logout')
        .then(response => checkResponse(response))
        .then(response => resolve(response.json()))
      )
@@ -31,7 +39,6 @@ export class ApiService {
          body: JSON.stringify(quiz),
          headers: {'Content-Type': 'application/json'}
        })
-       .then(response => checkResponse(response))
        .then(response => resolve(response))
      );
   }
@@ -44,6 +51,7 @@ export class ApiService {
          headers: {'Content-Type': 'application/json'}
        })
        .then(response => checkResponse(response))
+       .then(response => resolve(response.json()))
      );
   }
 

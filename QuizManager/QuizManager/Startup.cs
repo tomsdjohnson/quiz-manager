@@ -61,26 +61,28 @@ namespace QuizManager
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Edit", policy =>
+                    policy.RequireClaim("ACCESS_LEVEL", "Edit"));
+
+                options.AddPolicy("Restricted", policy =>
+                    policy.RequireClaim("ACCESS_LEVEL", "Edit", "Restricted"));
+                
+                options.AddPolicy("View", policy =>
+                    policy.RequireClaim("ACCESS_LEVEL", "Edit", "Restricted", "View"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseSession();
-            //Add JWToken to all incoming HTTP Request Header
+
             app.Use(async (context, next) =>
             {
                 var JWToken = context.Session.GetString("JWToken");
@@ -91,15 +93,11 @@ namespace QuizManager
 
                 await next();
             });
-            //Add JWToken Authentication service
 
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             app.UseHttpsRedirection();
             app.UseSpaStaticFiles();

@@ -20,16 +20,21 @@ export class HomePage extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.state)
+    this.handleDataRefresh();
+  };
+
+  handleDataRefresh = () => {
+    console.log("RE")
     this.apiService.getAllQuizzes()
     .then(quizzes => this.setState({quizzes}))
     .catch(e => alert('Failed to load quizzes'))
-    
-  };
+  }
   
   handleDeleteQuiz = (quiz) => {
     if(window.confirm("Are you sure you want to delete this quiz?")){
-      this.apiService.deleteQuiz(quiz).catch(e => alert('Failed to delete quiz'));
+      this.apiService.deleteQuiz(quiz)
+      .then( r => this.handleDataRefresh)
+      .catch(e => alert('Failed to delete quiz'));
     }
   }
   

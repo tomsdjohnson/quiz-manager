@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavigationBar/NavMenu';
-import TokenRepo from './auth/tokenRepo';
 import { HomePage } from './homePage/HomePage';
 import { ApiService } from './ApiService';
 import { LoginScreen } from './login/LoginScreen'

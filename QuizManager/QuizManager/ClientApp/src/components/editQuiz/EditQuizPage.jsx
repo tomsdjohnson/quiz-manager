@@ -46,7 +46,8 @@ export class EditQuizPage extends Component {
   handleSave = () => {
     if( areQuestionsValid(this.state.questions) && isNameValid(this.state.name)){
       this.apiService.saveQuizChanges(this.state)
-      .then(q => this.apiService.deleteQuizContent(this.state))
+      .catch(e => alert('Error while saving quiz'));
+      this.apiService.deleteQuizContent(this.state)
       .then(e => alert('Quiz saved successfully!'))
       .catch(e => alert('Error while saving quiz'));
 
