@@ -12,6 +12,7 @@ namespace QuizManager.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -20,7 +21,7 @@ namespace QuizManager.Services
         public User GetUserInfo(User user)
         {
             user.Password = HashPassword(user.Password);
-            return  _userRepository.GetUserInfo(user);
+            return _userRepository.GetUserInfo(user);
         }
 
         private static string HashPassword(string password)

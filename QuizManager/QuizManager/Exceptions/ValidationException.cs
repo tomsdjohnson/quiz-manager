@@ -7,13 +7,11 @@ namespace QuizManager.Exceptions
     {
         public ValidationException() : base("Validation of request failed")
         {
-
         }
 
         public ValidationException(string reason)
             : base($"Validation of request failed: {reason}")
         {
-
         }
     }
 }

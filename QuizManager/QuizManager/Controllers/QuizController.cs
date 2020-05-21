@@ -28,7 +28,7 @@ namespace QuizManager.Controllers
         [Route("delete-quiz-content")]
         public Task DeleteQuizContent(Quiz quiz)
         {
-             _quizService.DeleteQuizContent(quiz);
+            _quizService.DeleteQuizContent(quiz);
             return Task.CompletedTask;
         }
 

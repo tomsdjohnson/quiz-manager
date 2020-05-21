@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using QuizManager.Data.Models;
 using QuizManager.Data.Repositories;
 using QuizManager.Exceptions;
@@ -18,6 +17,7 @@ namespace QuizManager.Services
     public class QuizService : IQuizService
     {
         private readonly IQuizRepository _quizRepository;
+
         public QuizService(IQuizRepository quizRepository)
         {
             _quizRepository = quizRepository;
@@ -36,7 +36,7 @@ namespace QuizManager.Services
 
         public List<Quiz> GetAllQuizzes()
         {
-           return _quizRepository.GetAllQuizzes();
+            return _quizRepository.GetAllQuizzes();
         }
 
         public void UploadQuiz(Quiz quiz)
@@ -69,7 +69,6 @@ namespace QuizManager.Services
                     throw new ValidationException("There must be between 3 and 5 answers for each question");
                 }
             }
-
         }
     }
 }
