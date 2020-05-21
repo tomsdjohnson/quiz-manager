@@ -12,29 +12,34 @@ import {
 } from './HomeComponents';
 
 export class HomePage extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
+    
     this.apiService = new ApiService();
+    this.state={quizzes: [], userInfo: props.userInfo};
   }
 
+  componentDidMount = () => {
+    console.log(this.state)
+    this.apiService.getAllQuizzes()
+    .then(quizzes => this.setState({quizzes}))
+    .catch(e => alert('Failed to load quizzes'))
+    
+  };
   
-
   handleDeleteQuiz = (quiz) => {
     if(window.confirm("Are you sure you want to delete this quiz?")){
-      console.log("Delete", quiz)
-      this.apiService.deleteQuiz(quiz)
-      .then(response => {response.ok ? alert('Delete') : alert('Failed to delete quiz')});
+      this.apiService.deleteQuiz(quiz).catch(e => alert('Failed to delete quiz'));
     }
   }
-
+  
   renderForms = (quiz, index) => {  
     return(
     <HomePageQuizForm
         key={index} 
-        delete={this.handleDeleteQuiz}
         index={index} 
         quiz={quiz}
+        delete={this.handleDeleteQuiz}
     />
     )
   }
@@ -46,13 +51,12 @@ export class HomePage extends Component {
           <HomeTitleTag>
             Quizzes:
           </HomeTitleTag>   
-          <Link to='/edit'>
+          <Link to={{pathname: '/edit'}}>
               <AddQuestionIcon icon={faPlusCircle} />
           </Link>
         </HomeTitleContainer>
         <QuizzesContainer>
-          {this.props.quizzes && 
-          this.props.quizzes.map((quiz, index) => this.renderForms(quiz, index))}
+          {this.state.quizzes.map((quiz, index) => this.renderForms(quiz, index))}
         </QuizzesContainer>
       </HomeDiv>
     );

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using QuizManager.Data.Models;
+using QuizManager.Provider;
 using QuizManager.Services;
 
 namespace QuizManager.Controllers
@@ -16,9 +18,20 @@ namespace QuizManager.Controllers
         }
 
         [HttpPost]
-        public User GetUserInfo(User user)
+        public User Login(User userInfo)
         {
-            return _userService.GetUserInfo(user);
+            var tokenProvider = new TokenProvider();
+            var user = _userService.GetUserInfo(userInfo);
+
+            var userToken = tokenProvider.LoginUser(user);
+            HttpContext.Session.SetString("JWToken", userToken);
+
+            return user;
+        }
+
+        public void Logoff()
+        {
+            HttpContext.Session.Clear();
         }
     }
 }

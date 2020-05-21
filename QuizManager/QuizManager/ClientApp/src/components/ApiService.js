@@ -1,19 +1,15 @@
-import $ from 'jquery';
-window.jQuery = window.$ = $;
-
 export class ApiService {
 
   login(userLogin) {
-    return new Promise((resolve, reject) =>
+    return new Promise(resolve =>
       fetch('login', {
          method: 'POST',
          body: JSON.stringify(userLogin),
          headers: {'Content-Type': 'application/json'}
        })
        .then(response => checkResponse(response))
-       .then(users => resolve(extractUserInfo(users)))
-       .catch(e => reject(e))
-     );
+       .then(response => resolve(response.json()))
+     )
   }
 
   saveQuizChanges(quiz) {
@@ -23,7 +19,8 @@ export class ApiService {
          body: JSON.stringify(quiz),
          headers: {'Content-Type': 'application/json'}
        })
-       .then(response => response.ok ? this.deleteQuizContent(quiz) : alert("Failed to save"))
+       .then(response => checkResponse(response))
+       .then(response => resolve(response))
      );
   }
 
@@ -34,6 +31,7 @@ export class ApiService {
          body: JSON.stringify(quiz),
          headers: {'Content-Type': 'application/json'}
        })
+       .then(response => checkResponse(response))
        .then(response => resolve(response))
      );
   }
@@ -45,30 +43,22 @@ export class ApiService {
          body: JSON.stringify(quiz),
          headers: {'Content-Type': 'application/json'}
        })
-       .then(response => resolve(response))
+       .then(response => checkResponse(response))
      );
   }
 
   getAllQuizzes() {
     return new Promise(resolve  =>
       fetch('quiz')
-       .then(response => response.json())
-       .then(allQuizzes => resolve(allQuizzes))
-     );
+       .then(response => checkResponse(response))
+       .then(response => resolve(response.json()))
+     )
   }
-  
 }
 
 const checkResponse = response => {
   if(!response.ok){
-    throw new Error('Login failed');
+    throw new Error();
   }
-  return response.json()
+  return response;
 }
-
-const extractUserInfo = user => {
-  return {
-    username: user.username,
-    userPermission: user.permissionLevel
-  };
-};

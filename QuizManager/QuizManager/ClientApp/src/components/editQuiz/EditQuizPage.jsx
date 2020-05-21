@@ -46,11 +46,16 @@ export class EditQuizPage extends Component {
   handleSave = () => {
     if( areQuestionsValid(this.state.questions) && isNameValid(this.state.name)){
       this.apiService.saveQuizChanges(this.state)
-      .then(response => {response.ok ? this.props.history.push('/') : alert('Failed to save Quiz')});
+      .then(q => this.apiService.deleteQuizContent(this.state))
+      .then(e => alert('Quiz saved successfully!'))
+      .catch(e => alert('Error while saving quiz'));
+
     }
   };
 
   render () {
+    
+    console.log(this.props)
     return (
       <EditQuizDiv>
       <SaveButton 
