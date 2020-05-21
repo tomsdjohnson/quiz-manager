@@ -5,6 +5,7 @@ export const HomeDiv = styled.div`
   background-color: white;
   position:relative;
   height: 100%;
+  padding-bottom: 5px;
 `;
 
 export const HomeTitleContainer = styled.div`
@@ -33,23 +34,32 @@ export const QuizDiv = styled.div`
   border-bottom: 1.5px solid #dddddd;
 `;
 
-export const ViewButton = styled.button`
+export const ViewTag = styled.span`
+  color: black;
+  font-weight: bold;
   margin-top: 5px;
-  margin-left: 10px;
+  margin-left: 15px;
   float: right;
-  outline: none;
   padding: 4px 8px;
-  border: 0;
-  border-radius: 0px;
   background: lightblue;
   font-size: 1em;
 `;
 
-export const EditButton = styled(FontAwesomeIcon)`
-  margin-top: 6px;
-  font-size: 1.8rem;
+export const HomeIcon = styled(FontAwesomeIcon)`
+  color: black;
+  margin-top: 10px;
+  font-size: 1.5rem;
   cursor: pointer;
   outline: none;
-  margin-left: 10px;
+  margin-left: 15px;
   float: right;
+`;
+
+export const AddQuestionIcon = styled(FontAwesomeIcon)`
+  color: black;
+  margin: 15px;
+  float: right;
+  font-size: 3em;
+  cursor: pointer;
+  outline: none;
 `;

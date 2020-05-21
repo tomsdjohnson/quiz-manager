@@ -16,7 +16,7 @@ namespace QuizManager.DependencyInjection
             services.AddScoped<IQuizService, QuizService>();
             services.AddScoped<IQuizRepository, QuizRepository>();
 
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
             {
                 var persistentConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=QuizManager;Trusted_Connection=True;";
                 return new ContextFactory().Create(persistentConnectionString);

@@ -10,6 +10,6 @@ namespace QuizManager.Data.Models
         [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; }
     }
 }

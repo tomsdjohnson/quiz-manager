@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizManager.Data.Context;
 
 namespace QuizManager.Data.Migrations
 {
     [DbContext(typeof(QuizManagerContext))]
-    partial class QuizManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20200521134433_AddedCascadeOnDeleterewr")]
+    partial class AddedCascadeOnDeleterewr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,13 +34,9 @@ namespace QuizManager.Data.Migrations
 
                     b.Property<int>("QuestionId");
 
-                    b.Property<int?>("QuestionId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("QuestionId1");
 
                     b.ToTable("Answers");
                 });
@@ -52,16 +50,11 @@ namespace QuizManager.Data.Migrations
                     b.Property<string>("QuestionText")
                         .IsRequired();
 
-                    b.Property<int?>("QuizId")
-                        .IsRequired();
-
-                    b.Property<int?>("QuizId1");
+                    b.Property<int>("QuizId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuizId");
-
-                    b.HasIndex("QuizId1");
 
                     b.ToTable("Questions");
                 });
@@ -104,26 +97,18 @@ namespace QuizManager.Data.Migrations
 
             modelBuilder.Entity("QuizManager.Data.Models.Answer", b =>
                 {
-                    b.HasOne("QuizManager.Data.Models.Question")
+                    b.HasOne("QuizManager.Data.Models.Question", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("QuizManager.Data.Models.Question", "Question")
-                        .WithMany()
-                        .HasForeignKey("QuestionId1");
                 });
 
             modelBuilder.Entity("QuizManager.Data.Models.Question", b =>
                 {
-                    b.HasOne("QuizManager.Data.Models.Quiz")
+                    b.HasOne("QuizManager.Data.Models.Quiz", "Quiz")
                         .WithMany("Questions")
                         .HasForeignKey("QuizId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("QuizManager.Data.Models.Quiz", "Quiz")
-                        .WithMany()
-                        .HasForeignKey("QuizId1");
                 });
 #pragma warning restore 612, 618
         }

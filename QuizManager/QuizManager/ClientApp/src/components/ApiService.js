@@ -23,6 +23,28 @@ export class ApiService {
          body: JSON.stringify(quiz),
          headers: {'Content-Type': 'application/json'}
        })
+       .then(response => response.ok ? this.deleteQuizContent(quiz) : alert("Failed to save"))
+     );
+  }
+
+  deleteQuizContent(quiz) {
+    return new Promise(resolve  =>
+      fetch('quiz/delete-quiz-content', {
+         method: 'DELETE',
+         body: JSON.stringify(quiz),
+         headers: {'Content-Type': 'application/json'}
+       })
+       .then(response => resolve(response))
+     );
+  }
+
+  deleteQuiz(quiz) {
+    return new Promise(resolve  =>
+      fetch('quiz/delete-quiz', {
+         method: 'DELETE',
+         body: JSON.stringify(quiz),
+         headers: {'Content-Type': 'application/json'}
+       })
        .then(response => resolve(response))
      );
   }
@@ -45,7 +67,6 @@ const checkResponse = response => {
 }
 
 const extractUserInfo = user => {
-  console.log(user);
   return {
     username: user.username,
     userPermission: user.permissionLevel

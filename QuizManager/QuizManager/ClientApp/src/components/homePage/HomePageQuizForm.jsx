@@ -1,44 +1,28 @@
 import React, { Component } from 'react';
-import { Link, Redirect  } from 'react-router-dom';
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { Link  } from 'react-router-dom';
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import {
   QuizDiv,
   QuizTitleTag,
-  ViewButton,
-  EditButton
-
+  ViewTag,
+  HomeIcon
 } from './HomeComponents';
 
 export class HomePageQuizForm extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      goToEdit: false,
-      goToView: false
-    };
-  }
-
-  handleOnClick = () => {
-    this.setState({goToEdit: true});
-  }
-
   render () {
-    if (this.state.goToEdit) {
-      console.log("true")
-      return <Redirect to={{pathname: '/edit',
-      state: { state: this.props.quiz }}} />;
-    }
-
+    console.log(this.props.quiz.id)
     return (
       <QuizDiv>
         <QuizTitleTag>
           {this.props.quiz.name}
         </QuizTitleTag>
-        <ViewButton> View </ViewButton>
-        <Link to={{pathname: '/edit',state: {quiz: this.props.quiz}}}>
-          <EditButton icon={faEdit} />
+        <Link to={{pathname: '/view', state: {quiz: this.props.quiz}}}>
+          <ViewTag> View </ViewTag>
         </Link>
+        <Link to={{pathname: '/edit', state: {quiz: this.props.quiz}}}>
+          <HomeIcon icon={faEdit} />
+        </Link>
+        <HomeIcon icon={faTrash} onClick={e => this.props.delete(this.props.quiz)}/>
       </QuizDiv >
     );
   }

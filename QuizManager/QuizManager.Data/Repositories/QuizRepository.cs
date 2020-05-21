@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuizManager.Data.Context;
 using QuizManager.Data.Models;
@@ -8,7 +9,9 @@ namespace QuizManager.Data.Repositories
 {
     public interface IQuizRepository
     {
-        void UploadQuiz(Quiz quiz);
+        Task UploadQuiz(Quiz quiz);
+        void DeleteQuiz(int? quizId);
+        void DeleteQuestionsAndAnswers(Quiz quiz);
         List<Quiz> GetAllQuizzes();
     }
 
@@ -21,7 +24,7 @@ namespace QuizManager.Data.Repositories
             _context = context;
         }
 
-        public void UploadQuiz(Quiz quiz)
+        public async Task UploadQuiz(Quiz quiz)
         {
             if (quiz.Id == null)
             { 
@@ -29,19 +32,17 @@ namespace QuizManager.Data.Repositories
             }
             else
             {
-                var databaseQuiz = _context.Quizzes.Where(q => q.Id == quiz.Id)
-                    .Include(q => q.Questions)
-                    .ThenInclude(q => q.Answers).Single();
-
-                databaseQuiz.Questions = quiz.Questions;
-                databaseQuiz.Name = quiz.Name;
-
-
-
-                // var databaseQuiz = _context.Quizzes.Single(q => q.Id == quiz.Id);
-                // databaseQuiz.Questions = quiz.Questions;
-                // databaseQuiz.Name = quiz.Name;
+                _context.Update(quiz);
             }
+            _context.SaveChanges();
+        }
+
+        public void DeleteQuiz(int? quizId)
+        {
+            if (!quizId.HasValue) return;
+
+            var quiz = _context.Quizzes.Single(q => q.Id == quizId);
+            _context.Quizzes.Remove(quiz);
             _context.SaveChanges();
         }
 
@@ -50,6 +51,35 @@ namespace QuizManager.Data.Repositories
             return _context.Quizzes
                 .Include(q => q.Questions)
                 .ThenInclude(q => q.Answers).ToList();
+        }
+
+        public void DeleteQuestionsAndAnswers(Quiz quiz)
+        {
+            var oldQuiz = _context.Quizzes
+                .Include(q => q.Questions)
+                .ThenInclude(q => q.Answers)
+                .SingleOrDefault(r => r.Id == quiz.Id);
+
+            foreach (var question in oldQuiz.Questions)
+            {
+                var newQuestion = quiz.Questions.SingleOrDefault(q => q.Id == question.Id);
+
+                if (newQuestion == null)
+                {
+                    _context.Questions.Remove(question);
+                }
+                else
+                {
+                    foreach (var answer in question.Answers)
+                    {
+                        if (newQuestion.Answers.SingleOrDefault(a => a.Id == answer.Id) == null)
+                        {
+                            _context.Answers.Remove(answer);
+                        }
+                    }
+                }
+            }
+            _context.SaveChanges();
         }
     }
 }

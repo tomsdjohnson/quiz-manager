@@ -29,7 +29,7 @@ export class EditQuestionForm extends Component {
 
   render () {
     return (
-    <QuestionDiv isValid={this.props.isValid}>
+    <QuestionDiv>
         <InputBox>
             <QuestionTag >
                 Q{this.props.index +1}: 

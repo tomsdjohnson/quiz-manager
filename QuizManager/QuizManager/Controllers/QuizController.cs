@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QuizManager.Data.Models;
@@ -25,12 +24,27 @@ namespace QuizManager.Controllers
             return Task.CompletedTask;
         }
 
+        [HttpDelete]
+        [Route("delete-quiz-content")]
+        public Task DeleteQuizContent(Quiz quiz)
+        {
+             _quizService.DeleteQuizContent(quiz);
+            return Task.CompletedTask;
+        }
+
 
         [HttpGet]
         public List<Quiz> GetAllQuizzes()
         {
-            var re = _quizService.GetAllQuizzes();
-            return re;
+            return _quizService.GetAllQuizzes();
+        }
+
+        [HttpDelete]
+        [Route("delete-quiz")]
+        public Task DeleteQuiz(Quiz quiz)
+        {
+            _quizService.DeleteQuiz(quiz);
+            return Task.CompletedTask;
         }
     }
 }

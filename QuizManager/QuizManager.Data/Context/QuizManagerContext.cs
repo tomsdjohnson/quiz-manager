@@ -14,6 +14,18 @@ namespace QuizManager.Data.Context
             modelBuilder.Entity<User>()
                 .HasIndex(d => d.Username)
                 .IsUnique();
+            
+            modelBuilder.Entity<Question>()
+                .HasOne<Quiz>()
+                .WithMany(q => q.Questions)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Answer>()
+                .HasOne<Question>()
+                .WithMany(q => q.Answers)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

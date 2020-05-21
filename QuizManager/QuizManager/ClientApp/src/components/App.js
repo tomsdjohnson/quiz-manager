@@ -3,9 +3,10 @@ import { Route } from 'react-router';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavigationBar/NavMenu'
 import { HomePage } from './homePage/HomePage';
-import { LoginScreen } from './login/LoginScreen'
 import { ApiService } from './ApiService';
+import { LoginScreen } from './login/LoginScreen'
 import { EditQuizPage } from './editQuiz/EditQuizPage';
+import { ViewQuizPage } from './viewQuiz/ViewQuizPage';
 
 export default class App extends Component {
   constructor() {
@@ -13,6 +14,7 @@ export default class App extends Component {
 
     this.apiService = new ApiService();
     this.state = BLANK_STATE;
+    this.initialize()
   }
 
   login = (userLogin) => {
@@ -23,8 +25,13 @@ export default class App extends Component {
     .catch(e => {alert(e);})
   };
 
-  initialize = userInfo => {
-    this.setState({userInfo});
+  logout = () => {
+    this.updateLoginState(LOGGED_OUT);
+  };
+
+  // initialize = userInfo => {
+  initialize = () => {
+    // this.setState({userInfo});
     this.apiService.getAllQuizzes()
     .then(quizzes => this.updateQuizzesState(quizzes));
     
@@ -32,7 +39,6 @@ export default class App extends Component {
   }
 
   updateQuizzesState = quizzes => {
-    console.log(quizzes)
     this.setState({
       quizzes: quizzes
     });
@@ -46,19 +52,22 @@ export default class App extends Component {
 
 
   render () {
-    if (this.state.loginState !== LOGGED_IN) {
-      return <LoginScreen login={this.login} loginState={this.state.loginState} />;
-    }
-    console.log(this.state.quizzes);
+    // if (this.state.loginState !== LOGGED_IN) {
+    //   return <LoginScreen login={this.login} loginState={this.state.loginState} />;
+    // }
 
     return (
       <div>
-        <NavMenu />
+        <NavMenu 
+        username={"this.state.userInfo.username"}
+        logout={this.logout}
+        />
         <Container>
           <Route exact path='/'> 
             <HomePage quizzes={this.state.quizzes}/>
           </Route>
           <Route exact path='/edit' component={EditQuizPage} />
+          <Route exact path='/view' component={ViewQuizPage} />
         </Container>
       </div>
     );

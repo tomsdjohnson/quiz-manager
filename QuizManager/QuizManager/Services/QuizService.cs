@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using QuizManager.Data.Models;
 using QuizManager.Data.Repositories;
 using QuizManager.Exceptions;
@@ -8,6 +9,8 @@ namespace QuizManager.Services
 {
     public interface IQuizService
     {
+        void DeleteQuizContent(Quiz quiz);
+        void DeleteQuiz(Quiz quiz);
         void UploadQuiz(Quiz quiz);
         List<Quiz> GetAllQuizzes();
     }
@@ -18,6 +21,17 @@ namespace QuizManager.Services
         public QuizService(IQuizRepository quizRepository)
         {
             _quizRepository = quizRepository;
+        }
+
+        public void DeleteQuiz(Quiz quiz)
+        {
+            _quizRepository.DeleteQuiz(quiz.Id);
+        }
+
+        public void DeleteQuizContent(Quiz quiz)
+        {
+            UploadValidation(quiz);
+            _quizRepository.DeleteQuestionsAndAnswers(quiz);
         }
 
         public List<Quiz> GetAllQuizzes()

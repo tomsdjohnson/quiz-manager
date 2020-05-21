@@ -7,7 +7,6 @@ namespace QuizManager.Data.Models
     {
         public int Id { get; set; }
 
-        [ForeignKey("QuestionId")]
         public Question Question { get; set; }
 
         public bool IsCorrect { get; set; }

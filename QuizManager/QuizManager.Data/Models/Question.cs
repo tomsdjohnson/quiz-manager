@@ -8,12 +8,11 @@ namespace QuizManager.Data.Models
     {
         public int Id { get; set; }
 
-        [ForeignKey("QuizId")]
         public Quiz Quiz { get; set; }
 
         [Required]
         public string QuestionText { get; set; }
 
-        public virtual ICollection<Answer> Answers { get; set; }
+        public ICollection<Answer> Answers { get; set; }
     }
 }
