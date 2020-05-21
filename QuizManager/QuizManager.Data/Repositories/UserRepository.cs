@@ -21,14 +21,14 @@ namespace QuizManager.Data.Repositories
 
         public User GetUserInfo(User userLogin)
         {
-            var user =_context.Users
+            var user = _context.Users
                 .SingleOrDefault(u => u.Username == userLogin.Username && u.Password == userLogin.Password);
 
             if (user == null)
             {
                 throw new LoginFailedException();
             }
-            
+
             user.Password = null;
 
             return user;

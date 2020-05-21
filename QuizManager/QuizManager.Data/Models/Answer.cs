@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuizManager.Data.Models
 {
@@ -11,7 +10,6 @@ namespace QuizManager.Data.Models
 
         public bool IsCorrect { get; set; }
 
-        [Required]
-        public string AnswerText { get; set; }
+        [Required] public string AnswerText { get; set; }
     }
 }

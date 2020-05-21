@@ -7,8 +7,7 @@ namespace QuizManager.Data.Models
     {
         public int? Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
 
         public ICollection<Question> Questions { get; set; }
     }

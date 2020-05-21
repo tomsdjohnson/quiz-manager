@@ -10,8 +10,8 @@ using QuizManager.Data.Context;
 namespace QuizManager.Data.Migrations
 {
     [DbContext(typeof(QuizManagerContext))]
-    [Migration("20200519213059_MadeIdForQuizNullable")]
-    partial class MadeIdForQuizNullable
+    [Migration("20200521160111_SetUpDatabaseForQuizManager")]
+    partial class SetUpDatabaseForQuizManager
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,11 +32,15 @@ namespace QuizManager.Data.Migrations
 
                     b.Property<bool>("IsCorrect");
 
-                    b.Property<int?>("QuestionId");
+                    b.Property<int>("QuestionId");
+
+                    b.Property<int?>("QuestionId1");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
+
+                    b.HasIndex("QuestionId1");
 
                     b.ToTable("Answers");
                 });
@@ -50,11 +54,16 @@ namespace QuizManager.Data.Migrations
                     b.Property<string>("QuestionText")
                         .IsRequired();
 
-                    b.Property<int?>("QuizId");
+                    b.Property<int?>("QuizId")
+                        .IsRequired();
+
+                    b.Property<int?>("QuizId1");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuizId");
+
+                    b.HasIndex("QuizId1");
 
                     b.ToTable("Questions");
                 });
@@ -97,16 +106,26 @@ namespace QuizManager.Data.Migrations
 
             modelBuilder.Entity("QuizManager.Data.Models.Answer", b =>
                 {
-                    b.HasOne("QuizManager.Data.Models.Question", "Question")
+                    b.HasOne("QuizManager.Data.Models.Question")
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("QuizManager.Data.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId1");
                 });
 
             modelBuilder.Entity("QuizManager.Data.Models.Question", b =>
                 {
-                    b.HasOne("QuizManager.Data.Models.Quiz", "Quiz")
+                    b.HasOne("QuizManager.Data.Models.Quiz")
                         .WithMany("Questions")
-                        .HasForeignKey("QuizId");
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("QuizManager.Data.Models.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId1");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuizManager.Data.Context;
 using QuizManager.Data.Models;
@@ -9,7 +8,7 @@ namespace QuizManager.Data.Repositories
 {
     public interface IQuizRepository
     {
-        Task UploadQuiz(Quiz quiz);
+        void UploadQuiz(Quiz quiz);
         void DeleteQuiz(int? quizId);
         void DeleteQuestionsAndAnswers(Quiz quiz);
         List<Quiz> GetAllQuizzes();
@@ -24,16 +23,17 @@ namespace QuizManager.Data.Repositories
             _context = context;
         }
 
-        public async Task UploadQuiz(Quiz quiz)
+        public void UploadQuiz(Quiz quiz)
         {
             if (quiz.Id == null)
-            { 
+            {
                 _context.Quizzes.Add(quiz);
             }
             else
             {
                 _context.Update(quiz);
             }
+
             _context.SaveChanges();
         }
 
@@ -60,6 +60,11 @@ namespace QuizManager.Data.Repositories
                 .ThenInclude(q => q.Answers)
                 .SingleOrDefault(r => r.Id == quiz.Id);
 
+            if (oldQuiz == null)
+            {
+                return;
+            }
+
             foreach (var question in oldQuiz.Questions)
             {
                 var newQuestion = quiz.Questions.SingleOrDefault(q => q.Id == question.Id);
@@ -79,6 +84,7 @@ namespace QuizManager.Data.Repositories
                     }
                 }
             }
+
             _context.SaveChanges();
         }
     }

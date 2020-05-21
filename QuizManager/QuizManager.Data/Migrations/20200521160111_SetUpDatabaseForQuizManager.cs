@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QuizManager.Data.Migrations
 {
-    public partial class InitialCreateQuizManagerDatabases : Migration
+    public partial class SetUpDatabaseForQuizManager : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,9 +41,9 @@ namespace QuizManager.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    QuizId = table.Column<int>(nullable: true),
-                    Position = table.Column<int>(nullable: false),
-                    QuestionText = table.Column<int>(nullable: false)
+                    QuizId1 = table.Column<int>(nullable: true),
+                    QuestionText = table.Column<string>(nullable: false),
+                    QuizId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,6 +51,12 @@ namespace QuizManager.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Questions_Quizzes_QuizId",
                         column: x => x.QuizId,
+                        principalTable: "Quizzes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Questions_Quizzes_QuizId1",
+                        column: x => x.QuizId1,
                         principalTable: "Quizzes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -62,9 +68,10 @@ namespace QuizManager.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    QuestionId = table.Column<int>(nullable: true),
+                    QuestionId1 = table.Column<int>(nullable: true),
                     IsCorrect = table.Column<bool>(nullable: false),
-                    AnswerText = table.Column<string>(nullable: false)
+                    AnswerText = table.Column<string>(nullable: false),
+                    QuestionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,6 +79,12 @@ namespace QuizManager.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Answers_Questions_QuestionId",
                         column: x => x.QuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Answers_Questions_QuestionId1",
+                        column: x => x.QuestionId1,
                         principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -83,9 +96,19 @@ namespace QuizManager.Data.Migrations
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Answers_QuestionId1",
+                table: "Answers",
+                column: "QuestionId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Questions_QuizId",
                 table: "Questions",
                 column: "QuizId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Questions_QuizId1",
+                table: "Questions",
+                column: "QuizId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Username",

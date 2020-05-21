@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+
 namespace QuizManager.Data.Context
 {
     public class ContextFactory : IDesignTimeDbContextFactory<QuizManagerContext>
@@ -23,7 +24,8 @@ namespace QuizManager.Data.Context
 
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new InvalidOperationException($"Could not find a default connection string. Note: config basePath was: {basePath}.");
+                throw new InvalidOperationException(
+                    $"Could not find a default connection string. Note: config basePath was: {basePath}.");
             }
 
             return Create(connectionString);

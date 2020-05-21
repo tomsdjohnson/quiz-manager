@@ -18,7 +18,8 @@ namespace QuizManager.DependencyInjection
 
             services.AddScoped(sp =>
             {
-                var persistentConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=QuizManager;Trusted_Connection=True;";
+                var persistentConnectionString =
+                    "Server=(localdb)\\MSSQLLocalDB;Database=QuizManager;Trusted_Connection=True;";
                 return new ContextFactory().Create(persistentConnectionString);
             });
         }

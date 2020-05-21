@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuizManager.Data.Models
 {
@@ -10,8 +9,7 @@ namespace QuizManager.Data.Models
 
         public Quiz Quiz { get; set; }
 
-        [Required]
-        public string QuestionText { get; set; }
+        [Required] public string QuestionText { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
     }
