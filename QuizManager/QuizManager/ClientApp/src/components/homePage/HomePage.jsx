@@ -25,7 +25,7 @@ export class HomePage extends Component {
 
   handleDataRefresh = () => {
     console.log("RE")
-    this.apiService.getAllQuizzes()
+    this.apiService.getAllQuizzes(this.state.userInfo)
     .then(quizzes => this.setState({quizzes}))
     .catch(e => alert('Failed to load quizzes'))
   }

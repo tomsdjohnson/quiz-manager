@@ -38,9 +38,18 @@ namespace QuizManager.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("all-quizzes")]
         public List<Quiz> GetAllQuizzes()
         {
             return _quizService.GetAllQuizzes();
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "View")]
+        [Route("all-quizzes-and-answers")]
+        public List<Quiz> GetAllQuizzesWithAnswers()
+        {
+            return _quizService.GetAllQuizzesWithAnswers();
         }
 
         [HttpDelete]

@@ -55,9 +55,10 @@ export class ApiService {
      );
   }
 
-  getAllQuizzes() {
+  getAllQuizzes(userInfo) {
+    var path = userInfo.permissionLevel < 3 ? "all-quizzes-and-answers" : "all-quizzes";
     return new Promise(resolve  =>
-      fetch('quiz')
+      fetch('quiz/' + path)
        .then(response => checkResponse(response))
        .then(response => resolve(response.json()))
      )

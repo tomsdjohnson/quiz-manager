@@ -12,6 +12,7 @@ namespace QuizManager.Services
         void DeleteQuiz(Quiz quiz);
         void UploadQuiz(Quiz quiz);
         List<Quiz> GetAllQuizzes();
+        List<Quiz> GetAllQuizzesWithAnswers();
     }
 
     public class QuizService : IQuizService
@@ -37,6 +38,11 @@ namespace QuizManager.Services
         public List<Quiz> GetAllQuizzes()
         {
             return _quizRepository.GetAllQuizzes();
+        }
+
+        public List<Quiz> GetAllQuizzesWithAnswers()
+        {
+            return _quizRepository.GetAllQuizzesWithAnswers();
         }
 
         public void UploadQuiz(Quiz quiz)
