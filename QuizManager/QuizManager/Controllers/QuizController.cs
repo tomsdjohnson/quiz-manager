@@ -23,7 +23,7 @@ namespace QuizManager.Controllers
         public IActionResult UploadQuiz(Quiz quiz)
         {
             try
-            { 
+            {
                 _quizService.UploadQuiz(quiz);
                 return new OkResult();
             }

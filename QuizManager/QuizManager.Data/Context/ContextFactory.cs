@@ -23,10 +23,8 @@ namespace QuizManager.Data.Context
             var connectionString = config.GetConnectionString("Sql");
 
             if (string.IsNullOrWhiteSpace(connectionString))
-            {
                 throw new InvalidOperationException(
                     $"Could not find a default connection string. Note: config basePath was: {basePath}.");
-            }
 
             return Create(connectionString);
         }
@@ -34,9 +32,7 @@ namespace QuizManager.Data.Context
         public QuizManagerContext Create(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
-            {
                 throw new ArgumentException($"{nameof(connectionString)} is null or empty.", nameof(connectionString));
-            }
 
             var optionsBuilder = new DbContextOptionsBuilder<QuizManagerContext>();
 
