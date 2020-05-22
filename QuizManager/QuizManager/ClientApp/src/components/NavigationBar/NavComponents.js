@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import { QUIZ_MANAGER_COLORS } from '../colorPalette.js';
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+import { QUIZ_MANAGER_COLORS } from "../colorPalette.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Navbar = styled.div`
   background-color: ${QUIZ_MANAGER_COLORS.PrimaryComponentColor};
   color: ${QUIZ_MANAGER_COLORS.PrimaryComponentTextColor};
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
   width: 100%;
   padding: 0.5rem 1rem;
   box-sizing: border-box;
@@ -20,7 +20,7 @@ export const UserContainer = styled.div`
 `;
 
 export const UserDiv = styled.div`
-  width:100%;
+  width: 100%;
 `;
 
 export const UsernameTag = styled.span`

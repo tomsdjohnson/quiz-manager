@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const genericInputStyle = css`
@@ -23,10 +23,10 @@ export const QuestionDiv = styled.div`
 
 export const InputBox = styled.div`
   display: flex;
-  margin:20px;
+  margin: 20px;
 `;
 
-export const QuestionInput = styled.input.attrs({ type: 'text' })`
+export const QuestionInput = styled.input.attrs({ type: "text" })`
   ${genericInputStyle};
   margin-left: 5px;
   font-size: 1.5rem;
@@ -40,7 +40,7 @@ export const QuestionTag = styled.span`
 export const AnswerTag = styled.span`
   font-size: 1em;
   white-space: nowrap;
-  margin:5px 20px;
+  margin: 5px 20px;
 `;
 
 export const DeleteQuestionButton = styled(FontAwesomeIcon)`
@@ -61,7 +61,7 @@ export const MultipleInputBox = styled.div`
   border-bottom: 3px solid #dddddd;
 `;
 
-export const AnswerInput = styled.input.attrs({ type: 'text' })`
+export const AnswerInput = styled.input.attrs({ type: "text" })`
   ${genericInputStyle};
   max-width: 100%;
   font-size: 1rem;

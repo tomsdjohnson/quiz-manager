@@ -1,19 +1,19 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const genericInputStyle = css`
-    margin: 0 auto;
-    background-color: #eeeeee;
-    width: 100%;
-    padding-left: 8px;
-    border: none;
-    outline: none;
-    white-space: nowrap;
+  margin: 0 auto;
+  background-color: #eeeeee;
+  width: 100%;
+  padding-left: 8px;
+  border: none;
+  outline: none;
+  white-space: nowrap;
 `;
 
 export const EditQuizDiv = styled.div`
   background-color: white;
-  position:relative;
+  position: relative;
   height: 100%;
 `;
 
@@ -27,7 +27,7 @@ export const QuizTitleContainer = styled.div`
   border-bottom: 3px solid #dddddd;
 `;
 
-export const QuizInput = styled.input.attrs({ type: 'text' })`
+export const QuizInput = styled.input.attrs({ type: "text" })`
   ${genericInputStyle};
   font-size: 2.5rem;
 `;
@@ -36,7 +36,6 @@ export const QuizNameTag = styled.span`
   font-size: 3em;
   font-weight: bold;
 `;
-
 
 // Components for EditQuizQuestions.jsx
 

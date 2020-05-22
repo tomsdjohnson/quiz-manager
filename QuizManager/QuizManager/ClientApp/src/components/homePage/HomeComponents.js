@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import { QUIZ_MANAGER_COLORS } from '../colorPalette.js';
+import styled from "styled-components";
+import { QUIZ_MANAGER_COLORS } from "../colorPalette.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const HomeDiv = styled.div`
   background-color: white;
-  position:relative;
+  position: relative;
   height: 100%;
   padding-bottom: 5px;
 `;

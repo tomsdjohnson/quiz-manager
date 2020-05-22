@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
-    QuizTitleContainer,
-    QuizInput,
-    QuizNameTag
-} from './EditQuizComponents';
+  QuizTitleContainer,
+  QuizInput,
+  QuizNameTag,
+} from "./EditQuizComponents";
 
 export class EditQuizTitle extends Component {
-  render () {
+  render() {
     return (
       <QuizTitleContainer>
         <QuizNameTag>Quiz Name: </QuizNameTag>
-        <QuizInput 
+        <QuizInput
           value={this.props.quizName}
           onChange={this.props.changeName}
           placeholder={"Click to edit"}

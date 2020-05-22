@@ -1,17 +1,17 @@
-const isQuestionValid = question => {
-    if(question.questionText){
-        if(!question.answers.includes(null)){
-            return true;
-        }
+const isQuestionValid = (question) => {
+  if (question.questionText) {
+    if (!question.answers.includes(null)) {
+      return true;
     }
-    return false;
-};
-  
-export const isNameValid = name => {
-    return name ? true : false;
+  }
+  return false;
 };
 
-export const areQuestionsValid = questions => {
-    var response = questions.map(question => isQuestionValid(question));
-    return response.includes(false) ? false : true;
+export const isNameValid = (name) => {
+  return name ? true : false;
+};
+
+export const areQuestionsValid = (questions) => {
+  var response = questions.map((question) => isQuestionValid(question));
+  return response.includes(false) ? false : true;
 };

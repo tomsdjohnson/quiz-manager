@@ -1,5 +1,4 @@
 export const QUIZ_MANAGER_COLORS = {
-    PrimaryComponentColor: '#007bff',
-    PrimaryComponentTextColor: '#ffffff',
-  };
-  
+  PrimaryComponentColor: "#007bff",
+  PrimaryComponentTextColor: "#ffffff",
+};

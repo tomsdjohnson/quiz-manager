@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { QUIZ_MANAGER_COLORS } from '../colorPalette.js';
+import styled, { css } from "styled-components";
+import { QUIZ_MANAGER_COLORS } from "../colorPalette.js";
 
 export const LoginDiv = styled.div`
   display: flex;
@@ -27,25 +27,24 @@ export const LoginHeader = styled.div`
 `;
 
 const genericInputStyle = css`
-    margin: 0 auto;
-    display: block;
-    background-color: #eeeeee;
-    width: 50%;
-    font-size: 16px;
-    padding: 6px 2px;
-    border: none;
-    outline: none;
-    margin-bottom: 10px;
+  margin: 0 auto;
+  display: block;
+  background-color: #eeeeee;
+  width: 50%;
+  font-size: 16px;
+  padding: 6px 2px;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
 `;
 
-
-export const UsernameInput = styled.input.attrs({ type: 'text' })`
-    ${genericInputStyle};
+export const UsernameInput = styled.input.attrs({ type: "text" })`
+  ${genericInputStyle};
 `;
 
-export const PasswordInput = styled.input.attrs({ type: 'password' })`
-    ${genericInputStyle};
-    margin-bottom: 20px;
+export const PasswordInput = styled.input.attrs({ type: "password" })`
+  ${genericInputStyle};
+  margin-bottom: 20px;
 `;
 
 export const LogInButton = styled.button`

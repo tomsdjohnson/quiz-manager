@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ViewQuizDiv = styled.div`
   background-color: white;
-  position:relative;
+  position: relative;
   height: 100%;
 `;
 

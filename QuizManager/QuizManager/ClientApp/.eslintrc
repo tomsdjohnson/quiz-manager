@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "globals": {
+    "shallow": false
+  },
+  "rules": {
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 0,
+        "maxBOF": 0
+      }
+    ]
+  }
+}
