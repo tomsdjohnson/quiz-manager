@@ -29,8 +29,6 @@ namespace QuizManager.Data.Repositories
                 throw new LoginFailedException();
             }
 
-            user.Password = null;
-
             return user;
         }
     }

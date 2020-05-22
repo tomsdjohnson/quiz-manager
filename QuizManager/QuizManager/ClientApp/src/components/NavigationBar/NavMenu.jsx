@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarLink, UserContainer, UserIcon, UsernameTag, LogOutButton } from './NavComponents.js';
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Navbar, LogOutButton, UserContainer, HomeIcon, UserIcon, UsernameTag, UserDiv } from './NavComponents.js';
+import { faUser, faHome } from "@fortawesome/free-solid-svg-icons";
+import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends Component {
-
   render () {
     return (
       <header>
         <Navbar>
-            <NavbarLink tag={Link} to="/">Home</NavbarLink>
+            <NavLink tag={Link} to="/">
+                <HomeIcon icon={faHome} />
+            </NavLink>
             <UserContainer>
-              <UserIcon icon={faUser} />
-              <UsernameTag>
-                {this.props.username}
-              </UsernameTag>
-              <LogOutButton onClick={this.props.logout}>
-                Logout
+              <UserDiv>
+                <UserIcon icon={faUser} />
+                <UsernameTag>
+                  {this.props.username}
+                </UsernameTag>
+              </UserDiv>
+              <UserDiv>
+              <LogOutButton 
+               onClick={this.props.logout}
+               tag={Link} to="/">
+                 Logout
               </LogOutButton>
+              </UserDiv>
             </UserContainer>
         </Navbar>
       </header>

@@ -52,9 +52,7 @@ export default class App extends Component {
         />
         <Container>
           <Route exact path='/'> 
-          <HomePage
-            userInfo={this.state.userInfo}
-          />
+          <HomePage userInfo={this.state.userInfo}/>
           </Route>
           <Route exact path='/edit' component={EditQuizPage} />
           <Route exact path='/view' component={ViewQuizPage} />

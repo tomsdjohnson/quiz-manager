@@ -45,7 +45,7 @@ export const ViewTag = styled.span`
   font-size: 1em;
 `;
 
-export const HomeIcon = styled(FontAwesomeIcon)`
+export const Icon = styled(FontAwesomeIcon)`
   color: black;
   margin-top: 10px;
   font-size: 1.5rem;

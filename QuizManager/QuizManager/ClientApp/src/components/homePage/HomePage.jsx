@@ -10,6 +10,7 @@ import {
   QuizzesContainer,
   AddQuestionIcon
 } from './HomeComponents';
+import _ from 'lodash';
 
 export class HomePage extends Component {
   constructor(props) {
@@ -24,7 +25,6 @@ export class HomePage extends Component {
   };
 
   handleDataRefresh = () => {
-    console.log("RE")
     this.apiService.getAllQuizzes(this.state.userInfo)
     .then(quizzes => this.setState({quizzes}))
     .catch(e => alert('Failed to load quizzes'))
@@ -32,9 +32,10 @@ export class HomePage extends Component {
   
   handleDeleteQuiz = (quiz) => {
     if(window.confirm("Are you sure you want to delete this quiz?")){
-      this.apiService.deleteQuiz(quiz)
-      .then( r => this.handleDataRefresh)
-      .catch(e => alert('Failed to delete quiz'));
+      this.apiService.deleteQuiz(quiz);
+      let quizzes = _.cloneDeep(this.state.quizzes);
+      quizzes.filter(q => q.id != quiz.id); 
+      this.setState({quizzes});
     }
   }
   
@@ -44,8 +45,17 @@ export class HomePage extends Component {
         key={index} 
         index={index} 
         quiz={quiz}
+        permissionLevel={this.state.userInfo.permissionLevel}
         delete={this.handleDeleteQuiz}
     />
+    )
+  }
+
+  renderWithPermission = () => {
+    return(
+      <Link to={{pathname: '/edit'}}>
+        <AddQuestionIcon icon={faPlusCircle} />
+      </Link>
     )
   }
 
@@ -55,10 +65,8 @@ export class HomePage extends Component {
         <HomeTitleContainer>
           <HomeTitleTag>
             Quizzes:
-          </HomeTitleTag>   
-          <Link to={{pathname: '/edit'}}>
-              <AddQuestionIcon icon={faPlusCircle} />
-          </Link>
+          </HomeTitleTag>
+          {this.state.userInfo.permissionLevel === 1 && this.renderWithPermission()}
         </HomeTitleContainer>
         <QuizzesContainer>
           {this.state.quizzes.map((quiz, index) => this.renderForms(quiz, index))}

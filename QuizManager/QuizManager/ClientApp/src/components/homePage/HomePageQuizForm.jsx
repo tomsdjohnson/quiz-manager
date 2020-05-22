@@ -5,24 +5,32 @@ import {
   QuizDiv,
   QuizTitleTag,
   ViewTag,
-  HomeIcon
+  Icon
 } from './HomeComponents';
 
 export class HomePageQuizForm extends Component {
+  
+  renderWithPermission = () => {
+    return(
+      <span>
+        <Link to={{pathname: '/edit', state: {quiz: this.props.quiz}}}>
+          <Icon icon={faEdit} />
+        </Link>
+        <Icon icon={faTrash} onClick={e => this.props.delete(this.props.quiz)}/>
+      </span>
+    )
+  }
+
   render () {
-    console.log(this.props.quiz.id)
     return (
       <QuizDiv>
         <QuizTitleTag>
           {this.props.quiz.name}
         </QuizTitleTag>
-        <Link to={{pathname: '/view', state: {quiz: this.props.quiz}}}>
+        <Link to={{pathname: '/view', state: {quiz: this.props.quiz, permissionLevel: this.props.permissionLevel}}}>
           <ViewTag> View </ViewTag>
         </Link>
-        <Link to={{pathname: '/edit', state: {quiz: this.props.quiz}}}>
-          <HomeIcon icon={faEdit} />
-        </Link>
-        <HomeIcon icon={faTrash} onClick={e => this.props.delete(this.props.quiz)}/>
+        {this.props.permissionLevel === 1 && this.renderWithPermission()}
       </QuizDiv >
     );
   }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.AspNetCore.Http;
 using QuizManager.Data.Models;
 using QuizManager.Data.Repositories;
 
@@ -22,7 +21,9 @@ namespace QuizManager.Services
         public User GetUserInfo(User user)
         {
             user.Password = HashPassword(user.Password);
-            return _userRepository.GetUserInfo(user);
+            user = _userRepository.GetUserInfo(user);
+            user.Password = null;
+            return user;
         }
 
         private static string HashPassword(string password)

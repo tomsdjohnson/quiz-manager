@@ -37,18 +37,31 @@ namespace QuizManager.Services
 
         public List<Quiz> GetAllQuizzes()
         {
-            return _quizRepository.GetAllQuizzes();
+            var quizzes = _quizRepository.GetAllQuizzes();
+            RemoveCorrectAnswerBool(quizzes);
+            return quizzes;
         }
 
         public List<Quiz> GetAllQuizzesWithAnswers()
         {
-            return _quizRepository.GetAllQuizzesWithAnswers();
+            return _quizRepository.GetAllQuizzes();
         }
 
         public void UploadQuiz(Quiz quiz)
         {
             UploadValidation(quiz);
             _quizRepository.UploadQuiz(quiz);
+        }
+
+        private static void RemoveCorrectAnswerBool(List<Quiz> quizzes)
+        {
+            foreach (var answer in from quiz in quizzes
+                from question in quiz.Questions
+                from answer in question.Answers
+                select answer)
+            {
+                answer.IsCorrect = false;
+            }
         }
 
         private static void UploadValidation(Quiz quiz)

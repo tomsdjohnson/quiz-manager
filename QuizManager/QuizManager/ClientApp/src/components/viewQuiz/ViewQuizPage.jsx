@@ -12,9 +12,11 @@ import {
 export class ViewQuizPage extends Component {
     constructor(props) {
       super(props);
+      console.log("df",props.location.state.permissionLevel)
 
       this.state = {
           quiz: props.location.state.quiz,
+          permissionLevel: props.location.state.permissionLevel,
           viewAnswers: false
       } ;
   }
@@ -32,13 +34,20 @@ export class ViewQuizPage extends Component {
     />
     )
   }
+  
+  renderWithPermission = () => {
+    return(
+      <ViewButton icon={this.state.viewAnswers ? faEye : faEyeSlash} onClick={this.handleViewChange} />
+    )
+  }
 
   render () {
+    console.log(this.state.permissionLevel)
     return (
       <ViewQuizDiv>
       <QuizTitleContainer>
         <QuizNameTag>Test</QuizNameTag>
-        <ViewButton icon={this.state.viewAnswers ? faEye : faEyeSlash} onClick={this.handleViewChange} />
+          {this.state.permissionLevel !== 3 && this.renderWithPermission()}
       </QuizTitleContainer>
       <QuestionsContainer>
         {this.state.quiz.questions.map((question, index) => this.renderForms(question, index))}
