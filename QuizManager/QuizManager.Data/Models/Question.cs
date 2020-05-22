@@ -11,6 +11,6 @@ namespace QuizManager.Data.Models
 
         [Required] public string QuestionText { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

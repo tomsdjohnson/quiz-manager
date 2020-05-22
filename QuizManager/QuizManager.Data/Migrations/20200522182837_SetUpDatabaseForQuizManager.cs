@@ -69,7 +69,6 @@ namespace QuizManager.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     QuestionId1 = table.Column<int>(nullable: true),
-                    IsCorrect = table.Column<bool>(nullable: false),
                     AnswerText = table.Column<string>(nullable: false),
                     QuestionId = table.Column<int>(nullable: false)
                 },

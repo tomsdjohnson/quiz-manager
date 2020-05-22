@@ -10,7 +10,7 @@ using QuizManager.Data.Context;
 namespace QuizManager.Data.Migrations
 {
     [DbContext(typeof(QuizManagerContext))]
-    [Migration("20200521160111_SetUpDatabaseForQuizManager")]
+    [Migration("20200522182837_SetUpDatabaseForQuizManager")]
     partial class SetUpDatabaseForQuizManager
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,8 +29,6 @@ namespace QuizManager.Data.Migrations
 
                     b.Property<string>("AnswerText")
                         .IsRequired();
-
-                    b.Property<bool>("IsCorrect");
 
                     b.Property<int>("QuestionId");
 
