@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QuizManager.Data.Exceptions;
 using QuizManager.Data.Models;
+using QuizManager.Exceptions;
 using QuizManager.Provider;
 using QuizManager.Services;
 
@@ -19,21 +21,27 @@ namespace QuizManager.Controllers
 
         [HttpPost]
         [Route("login")]
-        public User Login(User userInfo)
+        public IActionResult Login(User userInfo)
         {
+            try
+            {
+                var tokenProvider = new TokenProvider();
+                var user = _userService.GetUserInfo(userInfo);
 
-            var tokenProvider = new TokenProvider();
-            var user = _userService.GetUserInfo(userInfo);
+                var userToken = tokenProvider.LoginUser(user);
+                HttpContext.Session.SetString("JWToken", userToken);
 
-            var userToken = tokenProvider.LoginUser(user);
-            HttpContext.Session.SetString("JWToken", userToken);
-
-            return user;
+                return new OkObjectResult(user);
+            }
+            catch(LoginFailedException exception)
+            {
+                return new NotFoundObjectResult(exception.Message);
+            }
         }
 
         [HttpPost]
         [Route("logout")]
-        public void Logoff()
+        public void Logout()
         {
             HttpContext.Session.Clear();
         }

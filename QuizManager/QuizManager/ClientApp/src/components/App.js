@@ -21,11 +21,11 @@ export default class App extends Component {
     .then(userInfo => {
       this.initialize(userInfo);
     })
-    .catch(e => alert('Login failed'))
   };
 
   logout = () => {
-    this.updateLoginState(LOGGED_OUT);
+    this.apiService.logout();
+    this.setState(BLANK_STATE);
   };
 
   initialize = userInfo => {
@@ -52,7 +52,7 @@ export default class App extends Component {
         />
         <Container>
           <Route exact path='/'> 
-          <HomePage userInfo={this.state.userInfo}/>
+            <HomePage userInfo={this.state.userInfo}/>
           </Route>
           <Route exact path='/edit' component={EditQuizPage} />
           <Route exact path='/view' component={ViewQuizPage} />

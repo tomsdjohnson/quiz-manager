@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { QUIZ_MANAGER_COLORS } from '../colorPalette.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const HomeDiv = styled.div`
@@ -35,13 +36,13 @@ export const QuizDiv = styled.div`
 `;
 
 export const ViewTag = styled.span`
-  color: black;
+  color: ${QUIZ_MANAGER_COLORS.PrimaryComponentTextColor};
   font-weight: bold;
   margin-top: 5px;
   margin-left: 15px;
   float: right;
   padding: 4px 8px;
-  background: lightblue;
+  background: ${QUIZ_MANAGER_COLORS.PrimaryComponentColor};
   font-size: 1em;
 `;
 

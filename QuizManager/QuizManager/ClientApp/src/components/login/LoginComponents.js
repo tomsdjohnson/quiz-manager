@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { QUIZ_MANAGER_COLORS } from '../colorPalette.js';
 
 export const LoginDiv = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ export const LoginHeader = styled.div`
   text-align: center;
   display: block;
   color: black;
-  font-size: 30px;
+  font-size: 2em;
   margin: 20px;
   fo
 `;
@@ -48,15 +49,15 @@ export const PasswordInput = styled.input.attrs({ type: 'password' })`
 `;
 
 export const LogInButton = styled.button`
+  background: ${QUIZ_MANAGER_COLORS.PrimaryComponentColor};
+  color: ${QUIZ_MANAGER_COLORS.PrimaryComponentTextColor};
   display: block;
-  font-weight: bold
+  font-weight: bold;
   cursor: pointer;
   outline: none;
   margin: 0 auto;
   padding: 4px 8px;
   border: 0;
   border-radius: 0px;
-  background: #007bff;
-  color: white;
   font-size: 16px;
 `;

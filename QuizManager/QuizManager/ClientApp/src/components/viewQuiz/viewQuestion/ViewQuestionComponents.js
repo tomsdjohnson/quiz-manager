@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const QuestionDiv = styled.div`
   width: 50%;
@@ -35,9 +34,4 @@ export const BodyContainer = styled.div`
 export const AnswerContainer = styled.div`
   width: 50%;
   font-size: 1em;
-`;
-
-export const CorrectAnswerIcon = styled(FontAwesomeIcon)`
-  font-size: 1em;
-  margin-left: 10px;
 `;

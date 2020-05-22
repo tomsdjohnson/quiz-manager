@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { EditWrongAnswers } from './EditWrongAnswers'
+import { EditAnswers } from './EditAnswers'
 import {
     QuestionDiv,
     InputBox,
     QuestionInput,
-    CorrectInput,
     QuestionTag,
-    WrongAnswerTag,
-    CorrectAnswerTag,
+    AnswerTag,
     DeleteQuestionButton
 } from './EditQuestionComponents';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -21,9 +19,9 @@ export class EditQuestionForm extends Component {
         this.props.changeQuestion(newQuestion, this.props.index);
     };  
 
-    handleAnswerChange = (event, index, isCorrect) => {
+    handleAnswerChange = (event, index) => {
         var newQuestion = _.cloneDeep(this.props.question);
-        newQuestion.answers[index] = {isCorrect: isCorrect, answerText: event.target.value};
+        newQuestion.answers[index] = {answerText: event.target.value};
         this.props.changeQuestion(newQuestion, this.props.index);
     };
 
@@ -41,18 +39,8 @@ export class EditQuestionForm extends Component {
           />
           <DeleteQuestionButton icon={faTrash} onClick={e => this.props.deleteQuestion(e, this.props.index)}  />
         </InputBox>
-        <InputBox>
-            <CorrectAnswerTag >
-             Correct Answer:
-             </CorrectAnswerTag>
-            <CorrectInput 
-            placeholder={"Enter correct answer"}
-            value={getInputValue(this.props.question.answers[0])}
-            onChange={event => this.handleAnswerChange(event,0,true)}
-            />
-        </InputBox>
-        <WrongAnswerTag> Wrong Answers: </WrongAnswerTag> 
-        <EditWrongAnswers 
+        <AnswerTag> Answers: </AnswerTag> 
+        <EditAnswers 
             changeAnswer={this.handleAnswerChange}
             changeQuestion={this.props.changeQuestion}
             question={this.props.question}
@@ -61,8 +49,4 @@ export class EditQuestionForm extends Component {
     </QuestionDiv>
     );
   }
-}
-
-const getInputValue = (answer) => {
-    return answer ? answer.answerText : '';
 }

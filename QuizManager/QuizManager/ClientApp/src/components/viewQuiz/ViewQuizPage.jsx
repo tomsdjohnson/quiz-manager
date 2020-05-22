@@ -1,56 +1,47 @@
 import React, { Component } from 'react';
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ViewQuestionForm } from './viewQuestion/ViewQuestionForm';
 import { QuestionsContainer } from './ViewQuizComponents';
+import { Link } from 'react-router-dom';
 import {
   ViewQuizDiv,
   QuizTitleContainer,
   QuizNameTag,
-  ViewButton
+  ExitButton
 } from './ViewQuizComponents';
 
 export class ViewQuizPage extends Component {
     constructor(props) {
       super(props);
-      console.log("df",props.location.state.permissionLevel)
 
       this.state = {
           quiz: props.location.state.quiz,
-          permissionLevel: props.location.state.permissionLevel,
-          viewAnswers: false
+          permissionLevel: props.location.state.permissionLevel
       } ;
   }
 
-  handleViewChange = () => {
-    this.setState({viewAnswers: !this.state.viewAnswers})
-  };
-
-  renderForms = (question, index) => {  
+  renderForm = (question, index) => {  
     return(
     <ViewQuestionForm 
         key={index} 
+        index={index} 
         question={question}
-        viewAnswer={this.state.viewAnswers}
+        permissionLevel={this.state.permissionLevel}
     />
-    )
-  }
-  
-  renderWithPermission = () => {
-    return(
-      <ViewButton icon={this.state.viewAnswers ? faEye : faEyeSlash} onClick={this.handleViewChange} />
     )
   }
 
   render () {
-    console.log(this.state.permissionLevel)
     return (
       <ViewQuizDiv>
       <QuizTitleContainer>
         <QuizNameTag>Test</QuizNameTag>
-          {this.state.permissionLevel !== 3 && this.renderWithPermission()}
+        <Link to={'/'}>
+          <ExitButton icon={faTimes} />
+        </Link>
       </QuizTitleContainer>
       <QuestionsContainer>
-        {this.state.quiz.questions.map((question, index) => this.renderForms(question, index))}
+        {this.state.quiz.questions.map((question, index) => this.renderForm(question, index))}
       </QuestionsContainer>
       </ViewQuizDiv>
     );

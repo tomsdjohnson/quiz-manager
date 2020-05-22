@@ -8,8 +8,6 @@ namespace QuizManager.Data.Models
 
         public Question Question { get; set; }
 
-        public bool IsCorrect { get; set; }
-
         [Required] public string AnswerText { get; set; }
     }
 }

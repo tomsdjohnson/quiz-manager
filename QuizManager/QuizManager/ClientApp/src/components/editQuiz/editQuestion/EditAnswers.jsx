@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import {
     MultipleInputBox,
-    WrongInput,
+    AnswerInput,
     AddAnswerButton,
     DeleteAnswerButton,
-    WrongAnswerContainer
+    AnswerContainer
 } from './EditQuestionComponents';
 import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import _ from 'lodash';
 
-export class EditWrongAnswers extends Component {
+export class EditAnswers extends Component {
 
     handleAddAnswer = () => {
         var newQuestion = _.cloneDeep(this.props.question);
@@ -25,31 +25,30 @@ export class EditWrongAnswers extends Component {
 
     renderAddAnswerButton = () => {
     return(
-        <WrongAnswerContainer>
+        <AnswerContainer>
             <AddAnswerButton icon={faPlusCircle} onClick={this.handleAddAnswer} />
-        </WrongAnswerContainer>
+        </AnswerContainer>
     )
     }
 
-    renderWrongInput = (answer, index) => {
-    if(index === 0){ return };
+    renderAnswerInput = (answer, index) => {
     return(
-        <WrongAnswerContainer key={`${index}-wrongAnswer`}>
-            <WrongInput 
-                placeholder={"Enter false answer"}
+        <AnswerContainer key={`${index}-Answer`}>
+            <AnswerInput 
+                placeholder={"Enter answer"}
                 value={answer ? answer.answerText : ''}
-                onChange={event => this.props.changeAnswer(event, index, false)} 
+                onChange={event => this.props.changeAnswer(event, index)} 
             />
             {this.props.question.answers.length > 3 &&
                 <DeleteAnswerButton icon={faTimes} onClick={e => this.handleRemoveAnswer(e, index)}/>}
-        </WrongAnswerContainer>
+        </AnswerContainer>
     )
     }  
 
   render () {
     return (
     <MultipleInputBox>
-        {this.props.question.answers.map((answer, index) => this.renderWrongInput(answer, index))}
+        {this.props.question.answers.map((answer, index) => this.renderAnswerInput(answer, index))}
         {this.props.question.answers.length < 5 && this.renderAddAnswerButton()}
     </MultipleInputBox>
     );

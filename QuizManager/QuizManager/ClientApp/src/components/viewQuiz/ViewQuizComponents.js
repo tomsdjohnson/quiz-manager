@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ViewQuizDiv = styled.div`
-background-color: white;
-position:relative;
-height: 100%;
+  background-color: white;
+  position:relative;
+  height: 100%;
 `;
 
 export const QuizTitleContainer = styled.div`
@@ -27,7 +27,8 @@ export const QuizNameTag = styled.span`
   font-weight: bold;
 `;
 
-export const ViewButton = styled(FontAwesomeIcon)`
+export const ExitButton = styled(FontAwesomeIcon)`
+  color: black;
   position: absolute;
   cursor: pointer;
   outline: none;

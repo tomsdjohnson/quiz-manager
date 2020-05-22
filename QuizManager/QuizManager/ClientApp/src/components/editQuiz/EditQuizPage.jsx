@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import {
   EditQuizDiv,
-  SaveButton
+  SaveButton,
+  ExitButton
 } from './EditQuizComponents';
 import { isNameValid, areQuestionsValid } from '../helpers/QuizValidationHelper';
 import { ApiService } from '../ApiService';
 import {EditQuizTitle} from  './EditQuizTitle';
 import {EditQuizQuestions} from  './EditQuizQuestions';
-import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 export class EditQuizPage extends Component {
@@ -46,33 +48,31 @@ export class EditQuizPage extends Component {
   handleSave = () => {
     if( areQuestionsValid(this.state.questions) && isNameValid(this.state.name)){
       this.apiService.saveQuizChanges(this.state)
-      .catch(e => alert('Error while saving quiz'));
       this.apiService.deleteQuizContent(this.state)
-      .then(e => alert('Quiz saved successfully!'))
-      .catch(e => alert('Error while saving quiz'));
-
+      .then(message => alert(message))
     }
   };
 
   render () {
-    
-    console.log(this.props)
     return (
       <EditQuizDiv>
+      <Link to={'/'}>
+        <ExitButton icon={faTimes} />
+      </Link>
       <SaveButton 
       icon={faSave} 
       onClick={this.handleSave}
       />
-        <EditQuizTitle 
-        quizName={this.state.name}
-        changeName={this.handleNameChange}
-        />
-        <EditQuizQuestions 
-          deleteQuestion={this.handleDeleteQuestion}
-          changeQuestion={this.handleQuestionChange}
-          questions={this.state.questions}
-          newQuestion={this.handleNewQuestion}
-        />
+      <EditQuizTitle 
+      quizName={this.state.name}
+      changeName={this.handleNameChange}
+      />
+      <EditQuizQuestions 
+        deleteQuestion={this.handleDeleteQuestion}
+        changeQuestion={this.handleQuestionChange}
+        questions={this.state.questions}
+        newQuestion={this.handleNewQuestion}
+      />
       </EditQuizDiv>
     );
   }

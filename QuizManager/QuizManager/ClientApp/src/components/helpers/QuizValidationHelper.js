@@ -1,9 +1,7 @@
 const isQuestionValid = question => {
     if(question.questionText){
         if(!question.answers.includes(null)){
-            if(question.answers.filter(a => a.isCorrect === true).length === 1){
-                return true;
-            }
+            return true;
         }
     }
     return false;

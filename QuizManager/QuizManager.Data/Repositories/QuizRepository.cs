@@ -12,6 +12,7 @@ namespace QuizManager.Data.Repositories
         void DeleteQuiz(int? quizId);
         void DeleteQuestionsAndAnswers(Quiz quiz);
         List<Quiz> GetAllQuizzes();
+        List<Quiz> GetAllQuizzesWithAnswers();
     }
 
     public class QuizRepository : IQuizRepository
@@ -39,18 +40,23 @@ namespace QuizManager.Data.Repositories
 
         public void DeleteQuiz(int? quizId)
         {
-            if (!quizId.HasValue) return;
-
             var quiz = _context.Quizzes.Single(q => q.Id == quizId);
             _context.Quizzes.Remove(quiz);
             _context.SaveChanges();
+        }
+
+        public List<Quiz> GetAllQuizzesWithAnswers()
+        {
+            return _context.Quizzes
+                .Include(q => q.Questions)
+                .ThenInclude(q => q.Answers).ToList();
         }
 
         public List<Quiz> GetAllQuizzes()
         {
             return _context.Quizzes
                 .Include(q => q.Questions)
-                .ThenInclude(q => q.Answers).ToList();
+                .ToList();
         }
 
         public void DeleteQuestionsAndAnswers(Quiz quiz)
@@ -58,12 +64,7 @@ namespace QuizManager.Data.Repositories
             var oldQuiz = _context.Quizzes
                 .Include(q => q.Questions)
                 .ThenInclude(q => q.Answers)
-                .SingleOrDefault(r => r.Id == quiz.Id);
-
-            if (oldQuiz == null)
-            {
-                return;
-            }
+                .Single(r => r.Id == quiz.Id);
 
             foreach (var question in oldQuiz.Questions)
             {

@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import {
     QuestionDiv,
     QuestionTag,
     BodyContainer,
     AnswerContainer,
     AnswerPartTag,
-    AnswerTag,
-    CorrectAnswerIcon
+    AnswerTag
 } from './ViewQuestionComponents';
 
 export class ViewQuestionForm extends Component {
 
-    renderWrongInput = (answer, index) => {
+    renderAnswers = (answer, index) => {
         return(
             <AnswerContainer key={`${index}-Answer`}>
                 <AnswerPartTag>{ANSWER_PARTS[index]}: </AnswerPartTag>
                 <AnswerTag>{answer.answerText}</AnswerTag>
-                {this.props.viewAnswer && answer.isCorrect && <CorrectAnswerIcon icon={faCheck}/>}
             </AnswerContainer>
         )
     }
+
+  answersBuilder = () => {
+        return this.props.question.answers.map((answer, index) => this.renderAnswers(answer, index))
+  }
 
   render () {
     return (
@@ -28,9 +29,8 @@ export class ViewQuestionForm extends Component {
         <QuestionTag >
             Q{this.props.index +1}: {this.props.question.questionText}
         </QuestionTag >
-
         <BodyContainer>
-            {this.props.question.answers.map((answer, index) => this.renderWrongInput(answer, index))}
+            {this.props.permissionLevel !== 3 && this.answersBuilder()}
         </BodyContainer>
     </QuestionDiv>
     );

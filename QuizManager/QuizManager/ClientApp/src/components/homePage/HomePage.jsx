@@ -26,20 +26,19 @@ export class HomePage extends Component {
 
   handleDataRefresh = () => {
     this.apiService.getAllQuizzes(this.state.userInfo)
-    .then(quizzes => this.setState({quizzes}))
-    .catch(e => alert('Failed to load quizzes'))
+    .then(quizzes => this.setState({quizzes}));
   }
   
   handleDeleteQuiz = (quiz) => {
     if(window.confirm("Are you sure you want to delete this quiz?")){
       this.apiService.deleteQuiz(quiz);
       let quizzes = _.cloneDeep(this.state.quizzes);
-      quizzes.filter(q => q.id != quiz.id); 
-      this.setState({quizzes});
+      var newQuizzes = quizzes.filter(q => q.id !== quiz.id);
+      this.setState({quizzes: newQuizzes});
     }
   }
   
-  renderForms = (quiz, index) => {  
+  renderForms = (quiz, index) => {
     return(
     <HomePageQuizForm
         key={index} 

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuizManager.Data.Models;
+using QuizManager.Exceptions;
 using QuizManager.Services;
 
 namespace QuizManager.Controllers
@@ -20,21 +20,34 @@ namespace QuizManager.Controllers
 
         [HttpPost]
         [Authorize(Policy = "Edit")]
-        public Task UploadQuiz(Quiz quiz)
+        public IActionResult UploadQuiz(Quiz quiz)
         {
-            _quizService.UploadQuiz(quiz);
-            return Task.CompletedTask;
+            try
+            { 
+                _quizService.UploadQuiz(quiz);
+                return new OkResult();
+            }
+            catch (ValidationException exception)
+            {
+                return new BadRequestObjectResult(exception.Message);
+            }
         }
 
         [HttpDelete]
         [Authorize(Policy = "Edit")]
         [Route("delete-quiz-content")]
-        public Task DeleteQuizContent(Quiz quiz)
+        public IActionResult DeleteQuizContent(Quiz quiz)
         {
-            _quizService.DeleteQuizContent(quiz);
-            return Task.CompletedTask;
+            try
+            {
+                _quizService.DeleteQuizContent(quiz);
+                return new OkObjectResult("Quiz saved successfully!");
+            }
+            catch (ValidationException exception)
+            {
+                return new BadRequestObjectResult(exception.Message);
+            }
         }
-
 
         [HttpGet]
         [Authorize]
@@ -55,10 +68,9 @@ namespace QuizManager.Controllers
         [HttpDelete]
         [Authorize(Policy = "Edit")]
         [Route("delete-quiz")]
-        public Task DeleteQuiz(Quiz quiz)
+        public void DeleteQuiz(Quiz quiz)
         {
             _quizService.DeleteQuiz(quiz);
-            return Task.CompletedTask;
         }
     }
 }

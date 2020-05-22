@@ -72,6 +72,16 @@ export const SaveButton = styled(FontAwesomeIcon)`
   cursor: pointer;
   outline: none;
   font-size: 3em;
+  right: 80px;
+  top: 25px;
+`;
+
+export const ExitButton = styled(FontAwesomeIcon)`
+  color: black;
+  position: absolute;
+  cursor: pointer;
+  outline: none;
+  font-size: 3em;
   right: 30px;
   top: 25px;
 `;

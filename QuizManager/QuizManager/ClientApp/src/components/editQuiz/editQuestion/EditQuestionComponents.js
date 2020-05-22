@@ -32,26 +32,15 @@ export const QuestionInput = styled.input.attrs({ type: 'text' })`
   font-size: 1.5rem;
 `;
 
-export const CorrectInput = styled.input.attrs({ type: 'text' })`
-  ${genericInputStyle};
-  margin-left: 5px;
-  font-size: 1rem;
-`;
-
 export const QuestionTag = styled.span`
   font-size: 1.5em;
   font-weight: bold;
 `;
 
-export const WrongAnswerTag = styled.span`
+export const AnswerTag = styled.span`
   font-size: 1em;
   white-space: nowrap;
   margin:5px 20px;
-`;
-
-export const CorrectAnswerTag = styled.span`
-  font-size: 1em;
-  white-space: nowrap;
 `;
 
 export const DeleteQuestionButton = styled(FontAwesomeIcon)`
@@ -63,7 +52,7 @@ export const DeleteQuestionButton = styled(FontAwesomeIcon)`
   margin-left: 10px;
 `;
 
-// Components for EditWrongAnswers.jsx
+// Components for EditAnswers.jsx
 
 export const MultipleInputBox = styled.div`
   display: flex;
@@ -72,7 +61,7 @@ export const MultipleInputBox = styled.div`
   border-bottom: 3px solid #dddddd;
 `;
 
-export const WrongInput = styled.input.attrs({ type: 'text' })`
+export const AnswerInput = styled.input.attrs({ type: 'text' })`
   ${genericInputStyle};
   max-width: 100%;
   font-size: 1rem;
@@ -93,7 +82,7 @@ export const DeleteAnswerButton = styled(FontAwesomeIcon)`
   margin-right: 5px;
 `;
 
-export const WrongAnswerContainer = styled.div`
+export const AnswerContainer = styled.div`
   display: flex;
   width: 50%;
   margin-bottom: 5px;
