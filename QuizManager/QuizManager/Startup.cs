@@ -1,14 +1,15 @@
 using System;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using QuizManager.DependencyInjection;
 
 namespace QuizManager
@@ -27,7 +28,7 @@ namespace QuizManager
         {
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.RegisterServices();
             services.AddControllersWithViews();
@@ -69,7 +70,7 @@ namespace QuizManager
 
                 options.AddPolicy("Restricted", policy =>
                     policy.RequireClaim("ACCESS_LEVEL", "Edit", "Restricted"));
-                
+
                 options.AddPolicy("View", policy =>
                     policy.RequireClaim("ACCESS_LEVEL", "Edit", "Restricted", "View"));
             });
@@ -86,10 +87,7 @@ namespace QuizManager
             app.Use(async (context, next) =>
             {
                 var JWToken = context.Session.GetString("JWToken");
-                if (!string.IsNullOrEmpty(JWToken))
-                {
-                    context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
-                }
+                if (!string.IsNullOrEmpty(JWToken)) context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
 
                 await next();
             });
@@ -106,18 +104,15 @@ namespace QuizManager
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    "default",
+                    "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                if (env.IsDevelopment()) spa.UseReactDevelopmentServer("start");
             });
         }
     }

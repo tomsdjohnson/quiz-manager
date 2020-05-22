@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using QuizManager.Data.Context;
 using QuizManager.Data.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QuizManager.Data.Repositories
 {
@@ -27,13 +27,9 @@ namespace QuizManager.Data.Repositories
         public void UploadQuiz(Quiz quiz)
         {
             if (quiz.Id == null)
-            {
                 _context.Quizzes.Add(quiz);
-            }
             else
-            {
                 _context.Update(quiz);
-            }
 
             _context.SaveChanges();
         }
@@ -71,19 +67,11 @@ namespace QuizManager.Data.Repositories
                 var newQuestion = quiz.Questions.SingleOrDefault(q => q.Id == question.Id);
 
                 if (newQuestion == null)
-                {
                     _context.Questions.Remove(question);
-                }
                 else
-                {
                     foreach (var answer in question.Answers)
-                    {
                         if (newQuestion.Answers.SingleOrDefault(a => a.Id == answer.Id) == null)
-                        {
                             _context.Answers.Remove(answer);
-                        }
-                    }
-                }
             }
 
             _context.SaveChanges();

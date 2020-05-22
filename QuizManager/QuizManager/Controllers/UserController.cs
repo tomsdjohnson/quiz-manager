@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using QuizManager.Data.Exceptions;
 using QuizManager.Data.Models;
-using QuizManager.Exceptions;
 using QuizManager.Provider;
 using QuizManager.Services;
 
@@ -33,7 +32,7 @@ namespace QuizManager.Controllers
 
                 return new OkObjectResult(user);
             }
-            catch(LoginFailedException exception)
+            catch (LoginFailedException exception)
             {
                 return new NotFoundObjectResult(exception.Message);
             }

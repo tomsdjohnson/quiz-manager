@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using QuizManager.Data.Context;
-using QuizManager.Data.Models;
 using QuizManager.Data.Exceptions;
+using QuizManager.Data.Models;
 
 namespace QuizManager.Data.Repositories
 {
@@ -16,7 +16,7 @@ namespace QuizManager.Data.Repositories
 
         public UserRepository(QuizManagerContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public User GetUserInfo(User userLogin)
@@ -24,10 +24,7 @@ namespace QuizManager.Data.Repositories
             var user = _context.Users
                 .SingleOrDefault(u => u.Username == userLogin.Username && u.Password == userLogin.Password);
 
-            if (user == null)
-            {
-                throw new LoginFailedException();
-            }
+            if (user == null) throw new LoginFailedException();
 
             return user;
         }

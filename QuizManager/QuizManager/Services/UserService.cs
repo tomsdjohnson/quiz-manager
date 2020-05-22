@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using QuizManager.Data.Models;
 using QuizManager.Data.Repositories;
 
@@ -28,10 +30,10 @@ namespace QuizManager.Services
 
         private static string HashPassword(string password)
         {
-            using var sha = new System.Security.Cryptography.SHA256Managed();
-            var textData = System.Text.Encoding.UTF8.GetBytes(password);
+            using var sha = new SHA256Managed();
+            var textData = Encoding.UTF8.GetBytes(password);
             var hash = sha.ComputeHash(textData);
-            return BitConverter.ToString(hash).Replace("-", String.Empty);
+            return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
     }
 }
