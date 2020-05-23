@@ -64,7 +64,7 @@ export class EditQuizPage extends Component {
         </Link>
         <SaveButton
           icon={faSave}
-          showSave={
+          highlight={
             areQuestionsValid(this.state.questions) &&
             isNameValid(this.state.name)
           }
