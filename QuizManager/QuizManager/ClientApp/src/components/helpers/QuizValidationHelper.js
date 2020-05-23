@@ -1,10 +1,11 @@
 const isQuestionValid = (question) => {
   if (question.questionText) {
-    if (
-      !question.answers.includes(null) &&
-      !question.answers.filter((answer) => answer.answerText === "")
-    ) {
-      return true;
+    if (!question.answers.includes(null)) {
+      if (
+        !question.answers.filter((answer) => answer.answerText === "").length
+      ) {
+        return true;
+      }
     }
   }
   return false;
