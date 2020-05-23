@@ -35,7 +35,7 @@ export class ViewQuizPage extends Component {
     return (
       <ViewQuizDiv>
         <QuizTitleContainer>
-          <QuizNameTag>Test</QuizNameTag>
+          <QuizNameTag>{this.state.quiz.name}</QuizNameTag>
           <Link to={"/"}>
             <ExitButton icon={faTimes} />
           </Link>

@@ -62,7 +62,14 @@ export class EditQuizPage extends Component {
         <Link to={"/"}>
           <ExitButton icon={faTimes} />
         </Link>
-        <SaveButton icon={faSave} onClick={this.handleSave} />
+        <SaveButton
+          icon={faSave}
+          showSave={
+            areQuestionsValid(this.state.questions) &&
+            isNameValid(this.state.name)
+          }
+          onClick={this.handleSave}
+        />
         <EditQuizTitle
           quizName={this.state.name}
           changeName={this.handleNameChange}

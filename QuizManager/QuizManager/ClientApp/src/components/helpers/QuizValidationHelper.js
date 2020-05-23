@@ -1,6 +1,9 @@
 const isQuestionValid = (question) => {
   if (question.questionText) {
-    if (!question.answers.includes(null)) {
+    if (
+      !question.answers.includes(null) &&
+      !question.answers.filter((answer) => answer.answerText === "")
+    ) {
       return true;
     }
   }

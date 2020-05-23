@@ -67,8 +67,9 @@ export const AddQuestionButton = styled(FontAwesomeIcon)`
 `;
 
 export const SaveButton = styled(FontAwesomeIcon)`
+  color: ${(props) => !props.showSave && "grey"};
+  cursor: ${(props) => props.showSave && "pointer"};
   position: absolute;
-  cursor: pointer;
   outline: none;
   font-size: 3em;
   right: 80px;
